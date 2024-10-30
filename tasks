@@ -1,0 +1,15 @@
+- identify requests
+- parse requests into own data structure
+
+- open sockets
+- listen
+- poll/select
+
+- handle requests
+- send response
+
+- poll, accept new connections or read/write to connections
+
+- curl
+
+- parse config

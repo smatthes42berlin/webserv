@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:01:18 by smatthes          #+#    #+#             */
-/*   Updated: 2024/10/30 19:37:05 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/10/31 12:47:28 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(void)
 
 	// Bind the socket to a port
 	sockaddr_in.sin_family = AF_INET;
-	sockaddr_in.sin_port = htons(4242);
+	sockaddr_in.sin_port = htons(4000);
 	sockaddr_in.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	if (bind(socket_fd, (struct sockaddr *)&sockaddr_in,
@@ -54,7 +54,7 @@ int	main(void)
 		return (-1);
 	}
 
-	std::cout << "Server is listening on port 4242" << std::endl;
+	std::cout << "Server is listening on port 4000" << std::endl;
 
 	while (true)
 	{ // Main loop to keep the server running

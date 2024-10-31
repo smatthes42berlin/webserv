@@ -1,0 +1,8 @@
+https://hackmd.io/@laian/SJZHcOsmT
+
+https://www.codequoi.com/en/sockets-and-network-programming-in-c/
+
+https://42seoul.gitbook.io/webserv/or-web
+	
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+	

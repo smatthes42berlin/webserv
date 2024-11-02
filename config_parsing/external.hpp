@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 09:23:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/01 17:27:37 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/02 10:29:56 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@
 #include <cstring>
 #include <sys/stat.h>
 #include <fstream>
-
+#include <numeric>
 

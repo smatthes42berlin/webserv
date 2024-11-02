@@ -6,13 +6,14 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:41:35 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/01 19:51:20 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:47:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "external.hpp"
 #include "util.hpp"
+#include "ServerParser.hpp"
 
 class ConfigParser
 {
@@ -25,12 +26,21 @@ class ConfigParser
 	void parse_config();
 	void read_whole_file();
 	void check_file_access();
-	void print_file_line_by_line();
 	void remove_empty_lines();
 	void remove_comments();
 	void trim_each_line();
 	void check_for_invalid_key_words();
+	void lines_to_one_big_string();
+	void ensure_only_one_consecutive_ws();
 	void isolate_server_block_strings();
+	std::string &isolate_server_block(std::string &remaining_config);
+	void parse_server_blocks();
+	void parse_server_block(std::string server_block);
+	void isolate_location_block_strings(std::string &server_block,
+		std::vector<std::string> &location_blocks);
+
+	void print_file_line_by_line();
+	void print_server_blocks();
 
 	class FileAccessError : public std::exception
 	{
@@ -49,27 +59,31 @@ class ConfigParser
 		public:
 		virtual const char *what() const throw();
 	};
-	
+
 	class InvalidConfigKeyWord : public std::exception
 	{
 		public:
 		virtual const char *what() const throw();
 	};
 
-	// separate server blocks
-	// bracket not closed
-	// other keyword than server
-	// ignore comments
-	// drop comments at first
-	// open file
-	// read whole file
+	class OpeningBracketForServerBlockNotFound : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
 
-	// find server {} blocks
-	// remove empty lines
+	class ClosingBracketForServerBlockNotFound : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+
 	static const std::vector<std::string> ALLOWED_CONFIG_KEYS;
 
   private:
 	std::string _file_path;
+	std::string _file_processed_one_string;
 	std::vector<std::string> _file_line_by_line;
 	std::vector<std::string> _server_block_strings;
+	std::vector<ServerParser> _server_parser;
 };

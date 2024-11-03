@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 19:22:33 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/02 15:50:58 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/03 17:47:24 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,30 @@ std::string &trim(std::string &str)
 {
 	return (ltrim(rtrim(str)));
 }
+std::vector<std::string> split(const std::string &str, char delimiter)
+{
+	std::vector<std::string> tokens;
+	std::string token;
+	for (size_t i = 0; i < str.size(); ++i)
+	{
+		if (str[i] == delimiter)
+		{
+			if (!token.empty())
+			{
+				tokens.push_back(trim(token));
+				token.clear();
+			}
+		}
+		else
+			token += str[i];
+	}
+	if (!token.empty())
+		tokens.push_back(trim(token));
+	return (tokens);
+}
+
 std::vector<std::string> split(const std::string &str, char delimiter,
-	size_t maxTokens = std::string::npos)
+		size_t maxTokens = std::string::npos)
 {
 	size_t	tokenCount;
 
@@ -72,13 +94,45 @@ std::vector<std::string> split(const std::string &str, char delimiter,
 	return (tokens);
 }
 
+std::vector<std::string> split(const std::string &str, char delimiter,
+		size_t maxTokens = std::string::npos, size_t start_index = 0)
+{
+	size_t	tokenCount;
+
+	std::vector<std::string> tokens;
+	std::string token;
+	tokenCount = 0;
+	for (size_t i = start_index; i < str.size(); ++i)
+	{
+		if (str[i] == delimiter)
+		{
+			if (!token.empty())
+			{
+				tokens.push_back(trim(token));
+				token.clear();
+				tokenCount++;
+			}
+			if (maxTokens != std::string::npos && tokenCount >= maxTokens)
+				break ;
+		}
+		else
+		{
+			token += str[i];
+		}
+	}
+	if (!token.empty() && (maxTokens == std::string::npos
+			|| tokenCount < maxTokens))
+		tokens.push_back(trim(token));
+	return (tokens);
+}
+
 std::string join_lines(const std::vector<std::string> &lines)
 {
 	return (std::accumulate(lines.begin(), lines.end(), std::string("")));
 }
 
 int	find_first_opening_bracket_only_ws(const std::string &str,
-		size_t start_pos = 0)
+										size_t start_pos = 0)
 {
 	while (start_pos < str.length() && std::isspace(str[start_pos]))
 		++start_pos;
@@ -105,6 +159,21 @@ int	find_matching_closing_bracket(const std::string &str, int openPos)
 			if (counter == 0)
 				return (i);
 		}
+	}
+	return (-1);
+}
+
+int	find_matching_closing_bracket_no_nesting(const std::string &str,
+												int openPos)
+{
+	if (str[openPos] != '{')
+		return (-1);
+	for (size_t i = openPos + 1; i < str.size(); ++i)
+	{
+		if (str[i] == '{')
+			break ;
+		if (str[i] == '}')
+			return (i);
 	}
 	return (-1);
 }

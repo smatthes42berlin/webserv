@@ -53,6 +53,17 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "bitset": "cpp",
+        "complex": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
+    },
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#143416",
+        "titleBar.activeBackground": "#1C491F",
+        "titleBar.activeForeground": "#F5FBF5"
     }
 }

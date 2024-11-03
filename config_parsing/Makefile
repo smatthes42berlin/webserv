@@ -6,7 +6,7 @@
 #    By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/21 10:44:02 by smatthes          #+#    #+#              #
-#    Updated: 2024/11/02 15:39:40 by smatthes         ###   ########.fr        #
+#    Updated: 2024/11/03 09:18:47 by smatthes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CXXFLAGS 	= -Werror -Wextra -Wall -Wpedantic -fsanitize=address,undefined -g -st
 # CXXFLAGS 	= -std=c++98
 
 TARGET 		= test
-FILES 		= main ConfigParser util
+FILES 		= main ConfigParser ServerParser LocationParser util
 SRC			= $(FILES:=.cpp)
 OBJ 		= $(SRC:.cpp=.o)
 

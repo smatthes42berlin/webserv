@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:45:11 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/02 15:52:50 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/03 17:35:39 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@ class ServerParser
 	virtual ~ServerParser(void);
 
 	void parse_server_block();
-	void parse_location_strings();
-	void extract_location_block(int index);
-	int extract_location_block(std::string remaining_server_block);
+	void handle_location_strings();
+	int extract_location_block(std::string &remaining_server_block);
 	std::string get_location(std::string remaining_server_block,
-		int index_start_location_block,
-		int &index_opening_bracket_location_block);
+								int index_start_location_block,
+								int &index_opening_bracket_location_block);
+	void get_location_string(std::string src_str, std::string &res_location);
+	void parse_location_string(std::string location,
+											std::string remaining_server_block,
+											int index_opening_bracket_location_block,
+											int index_closing_bracket_location_block);
 
 	class OpeningBracketForLocationBlockNotFound : public std::exception
 	{
@@ -48,8 +52,14 @@ class ServerParser
 		public:
 		virtual const char *what() const throw();
 	};
-	
-	class IncorrectDefinitionOfLocationBlock : public std::exception
+
+	class NoOpeningBracketInsideLocationBlock : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+
+	class NoLocationDefinedInsideLocationBlock : public std::exception
 	{
 		public:
 		virtual const char *what() const throw();

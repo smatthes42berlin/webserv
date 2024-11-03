@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:01:18 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/02 15:41:37 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:00:32 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	test_bad_config(std::string file_path);
 
 int	main(void)
 {
-	// test_bad_configs();
-	std::string path = "config.conf";
-	ConfigParser parser(path);
-	try
-	{
-		parser.parse_config();
-		parser.print_file_line_by_line();
-		parser.print_server_blocks();
-	}
-	catch (std::exception &err)
-	{
-		std::cerr << err.what();
-	}
+	test_bad_configs();
+	// std::string path = "config.conf";
+	// ConfigParser parser(path);
+	// try
+	// {
+	// 	parser.parse_config();
+	// 	parser.print_file_line_by_line();
+	// 	parser.print_server_blocks();
+	// }
+	// catch (std::exception &err)
+	// {
+	// 	std::cerr << err.what();
+	// }
 	return (0);
 }
 
@@ -55,6 +55,15 @@ void	test_bad_configs(void)
 	test_config_names.push_back("no_closing_bracket_server_block_2.conf");
 	test_config_names.push_back("no_closing_bracket_server_block_3.conf");
 	test_config_names.push_back("invalid_keyword_after_first_server_block.conf");
+	test_config_names.push_back("bad_location_definition_1.conf");
+	test_config_names.push_back("bad_location_definition_2.conf");
+	test_config_names.push_back("bad_location_definition_3.conf");
+	test_config_names.push_back("bad_location_definition_4.conf");
+	test_config_names.push_back("bad_location_definition_5.conf");
+	test_config_names.push_back("bad_location_definition_6.conf");
+	test_config_names.push_back("invalid_keyword_inside_location_block_1.conf");
+	test_config_names.push_back("invalid_keyword_inside_location_block_2.conf");
+	test_config_names.push_back("invalid_keyword_inside_location_block_3.conf");
 	for (std::vector<std::string>::const_iterator it = test_config_names.begin(); it != test_config_names.end(); ++it)
 	{
 		test_bad_config(subfolder + *it);

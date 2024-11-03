@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:41:35 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/02 15:47:20 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/03 09:28:32 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class ConfigParser
 	void isolate_server_block_strings();
 	std::string &isolate_server_block(std::string &remaining_config);
 	void parse_server_blocks();
-	void parse_server_block(std::string server_block);
+	// void parse_server_block(std::string server_block);
 	void isolate_location_block_strings(std::string &server_block,
 		std::vector<std::string> &location_blocks);
 

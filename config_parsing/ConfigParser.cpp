@@ -6,14 +6,15 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:41:28 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/02 15:47:37 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:24:50 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ConfigParser.hpp"
 #include "external.hpp"
 
-ConfigParser::ConfigParser(std::string file_path) : _file_path(file_path)
+ConfigParser::ConfigParser(std::string file_path)
+	: _file_path(file_path)
 {
 	return ;
 }
@@ -37,8 +38,6 @@ ConfigParser::~ConfigParser(void)
 {
 	return ;
 }
-
-// parser.print_server_blocks();
 
 void ConfigParser::parse_config()
 {
@@ -67,13 +66,13 @@ void ConfigParser::parse_server_blocks()
 	}
 }
 
-void ConfigParser::parse_server_block(std::string server_block)
-{
-	std::vector<std::string> location_blocks;
-this->isolate_location_block_strings(server_block, location_blocks);
-	// extract loction blocks
-	// extrace remaining properties
-}
+// void ConfigParser::parse_server_block(std::string server_block)
+// {
+// 	std::vector<std::string> location_blocks;
+// 	this->isolate_location_block_strings(server_block, location_blocks);
+// 	// extract loction blocks
+// 	// extrace remaining properties
+// }
 
 void ConfigParser::lines_to_one_big_string()
 {
@@ -97,17 +96,17 @@ std::string &ConfigParser::isolate_server_block(std::string &remaining_config)
 	if (remaining_config.find("server") != 0)
 		throw InvalidConfigKeyWord();
 	index_opening_bracket = util::find_first_opening_bracket_only_ws(remaining_config,
-			std::string("server").length());
+																		std::string("server").length());
 	if (index_opening_bracket < 0)
 		throw OpeningBracketForServerBlockNotFound();
 	index_closing_bracket = util::find_matching_closing_bracket(remaining_config,
-			index_opening_bracket);
+																index_opening_bracket);
 	if (index_closing_bracket < 0)
 		throw ClosingBracketForServerBlockNotFound();
 	std::string server_block = remaining_config.substr(index_opening_bracket
 			+ 1, index_closing_bracket - index_opening_bracket - 1);
 	remaining_config = remaining_config.substr(index_closing_bracket + 1,
-			std::string::npos);
+												std::string::npos);
 	remaining_config = util::trim(remaining_config);
 	std::cout << server_block << std::endl;
 	this->_server_block_strings.push_back(server_block);
@@ -122,7 +121,7 @@ void ConfigParser::check_for_invalid_key_words()
 	for (std::vector<std::string>::iterator it_line = this->_file_line_by_line.begin(); it_line != this->_file_line_by_line.end(); ++it_line)
 	{
 		found = false;
-		first_word_of_line = util::split(*it_line, ' ', 1)[0];
+		first_word_of_line = util::split(*it_line, ' ', 1, 0)[0];
 		for (std::vector<std::string>::const_iterator it_keyword = ConfigParser::ALLOWED_CONFIG_KEYS.begin(); it_keyword != ConfigParser::ALLOWED_CONFIG_KEYS.end(); ++it_keyword)
 		{
 			if (first_word_of_line == *it_keyword)
@@ -247,7 +246,7 @@ const char *ConfigParser::ClosingBracketForServerBlockNotFound::what() const thr
 	return ("The closing bracket for a server block couldn't be found!\n");
 }
 
-static std::vector<std::string> createAllowedConfigKeys()
+static std::vector<std::string> create_allowed_config_keys()
 {
 	std::vector<std::string> keys;
 	keys.push_back("server");
@@ -270,4 +269,4 @@ static std::vector<std::string> createAllowedConfigKeys()
 	return (keys);
 }
 
-const std::vector<std::string> ConfigParser::ALLOWED_CONFIG_KEYS = createAllowedConfigKeys();
+const std::vector<std::string> ConfigParser::ALLOWED_CONFIG_KEYS = create_allowed_config_keys();

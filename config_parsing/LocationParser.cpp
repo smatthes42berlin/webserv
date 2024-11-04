@@ -80,7 +80,7 @@ void LocationParser::parse_location_block()
 	{
 		key_value_vector = util::split(*it_key_val, ' ');
 		std::map<std::string,
-					void (LocationParser::*)(std::vector<std::string>&)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
+					void (LocationParser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
 		if (it != this->keyword_handlers.end())
 		{
 			(this->*(it->second))(key_value_vector);
@@ -93,40 +93,54 @@ void LocationParser::parse_location_block()
 	// handle rest as args of keyword
 }
 
-void LocationParser::handle_root( std::vector<std::string>& key_val)
+void LocationParser::handle_root(std::vector<std::string> &key_val)
 {
-	(void)key_val;
 	std::cout << "handle root" << std::endl;
+	if (this->_root.size() > 0)
+		throw DuplicateIdentifier();
+	if (key_val.size() != 2)
+		throw InvalidNumberOfArguments();
+	if (this->_alias.size() > 0)
+		throw AliasNotAllowedWithRoot();
+	this->_root.push_back(key_val[1]);
 }
-void LocationParser::handle_index( std::vector<std::string>& key_val)
+void LocationParser::handle_index(std::vector<std::string> &key_val)
 {
-	(void)key_val;
 	std::cout << "handle index" << std::endl;
+	if (key_val.size() < 2)
+		throw InvalidNumberOfArguments();
+	util::vector_append_from_index(this->_index, key_val, 1);
 }
-void LocationParser::handle_error_page( std::vector<std::string>& key_val)
+void LocationParser::handle_error_page(std::vector<std::string> &key_val)
 {
 	(void)key_val;
 	std::cout << "handle error_page" << std::endl;
 }
-void LocationParser::handle_client_max_body_size( std::vector<std::string>& key_val)
+void LocationParser::handle_client_max_body_size(std::vector<std::string> &key_val)
 {
 	(void)key_val;
 	std::cout << "handle client_max_body_size" << std::endl;
 }
-void LocationParser::handle_methods( std::vector<std::string>& key_val)
+void LocationParser::handle_methods(std::vector<std::string> &key_val)
 {
 	(void)key_val;
 	std::cout << "handle methods" << std::endl;
 }
-void LocationParser::handle_autoindex( std::vector<std::string>& key_val)
+void LocationParser::handle_autoindex(std::vector<std::string> &key_val)
 {
 	(void)key_val;
 	std::cout << "handle autoindex" << std::endl;
 }
-void LocationParser::handle_alias( std::vector<std::string>& key_val)
+void LocationParser::handle_alias(std::vector<std::string> &key_val)
 {
-	(void)key_val;
 	std::cout << "handle alias" << std::endl;
+	if (this->_alias.size() > 0)
+		throw DuplicateIdentifier();
+	if (key_val.size() != 2)
+		throw InvalidNumberOfArguments();
+	if (this->_root.size() > 0)
+		throw AliasNotAllowedWithRoot();
+	this->_alias.push_back(key_val[1]);
 }
 
 const char *LocationParser::EmptyLocationDefinition::what() const throw()
@@ -137,6 +151,21 @@ const char *LocationParser::EmptyLocationDefinition::what() const throw()
 const char *LocationParser::UnknownKeywordInLocationBlock::what() const throw()
 {
 	return ("There was an unknown keyword encountered inside a location block!\n");
+}
+
+const char *LocationParser::DuplicateIdentifier::what() const throw()
+{
+	return ("A keyword allowing only one definition has been defined twice inside a location block!\n");
+}
+
+const char *LocationParser::InvalidNumberOfArguments::what() const throw()
+{
+	return ("An invalid number of arguments has been provided for a keyword inside a location block!\n");
+}
+
+const char *LocationParser::AliasNotAllowedWithRoot::what() const throw()
+{
+	return ("Either the root or alias keyword can be defined inside a location block,not both!\n");
 }
 
 void LocationParser::print(void)

@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:01:18 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/03 19:00:32 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/04 20:14:30 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ void	test_bad_configs(void)
 	test_config_names.push_back("invalid_keyword_inside_location_block_1.conf");
 	test_config_names.push_back("invalid_keyword_inside_location_block_2.conf");
 	test_config_names.push_back("invalid_keyword_inside_location_block_3.conf");
+	test_config_names.push_back("location_block_root_1.conf");
+	test_config_names.push_back("location_block_root_2.conf");
+	test_config_names.push_back("location_block_root_3.conf");
+	test_config_names.push_back("location_block_root_4.conf");
+	test_config_names.push_back("location_block_index_1.conf");
+	test_config_names.push_back("location_block_alias_1.conf");
+	test_config_names.push_back("location_block_alias_2.conf");
+	test_config_names.push_back("location_block_alias_3.conf");
+	test_config_names.push_back("location_block_alias_4.conf");
 	for (std::vector<std::string>::const_iterator it = test_config_names.begin(); it != test_config_names.end(); ++it)
 	{
 		test_bad_config(subfolder + *it);

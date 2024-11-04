@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 19:22:33 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/03 18:10:24 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/04 20:02:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,13 @@ void print_container(const Container &container, std::ostream &os = std::cout) {
         os << *it << std::endl;
     }
 	os << "***End of Container***" << std::endl << std::endl;
+}
 
+template <typename T>
+void vector_append_from_index(std::vector<T> &dest, const std::vector<T> &src, std::size_t start_index) {
+    if (start_index < src.size()) {
+        dest.insert(dest.end(), src.begin() + start_index, src.end());
+    }
 }
 
 } // namespace util

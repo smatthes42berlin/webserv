@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:55:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/03 18:51:23 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:53:28 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,24 @@ class LocationParser
 	};
 
 	class UnknownKeywordInLocationBlock : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+	
+	class DuplicateIdentifier : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+	
+	class InvalidNumberOfArguments : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+	
+	class AliasNotAllowedWithRoot : public std::exception
 	{
 		public:
 		virtual const char *what() const throw();

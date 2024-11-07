@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 19:22:33 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/04 20:01:44 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:34:10 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,15 @@ std::string ensure_only_one_consecutive_ws(const std::string &input)
 char	get_last_char(std::string &str)
 {
 	return (str[str.length()]);
+}
+
+bool is_digits_only(const std::string &str) {
+    for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
+        if (!isdigit(*it)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 } // namespace util

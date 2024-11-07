@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:41:28 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/03 18:24:50 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:05:07 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ std::string &ConfigParser::isolate_server_block(std::string &remaining_config)
 	remaining_config = remaining_config.substr(index_closing_bracket + 1,
 												std::string::npos);
 	remaining_config = util::trim(remaining_config);
-	std::cout << server_block << std::endl;
+	// std::cout << server_block << std::endl;
 	this->_server_block_strings.push_back(server_block);
 	return (remaining_config);
 }

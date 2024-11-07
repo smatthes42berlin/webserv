@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:55:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/04 19:53:28 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:02:55 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ class LocationParser
 	void handle_autoindex(std::vector<std::string> &key_val);
 	void handle_alias(std::vector<std::string> &key_val);
 
+	bool check_error_codes(std::vector<std::string> &key_val);
+	bool check_body_size_format(std::string size_str, uint &size_in_bytes);
+
 	class EmptyLocationDefinition : public std::exception
 	{
 		public:
@@ -48,20 +51,32 @@ class LocationParser
 		public:
 		virtual const char *what() const throw();
 	};
-	
+
 	class DuplicateIdentifier : public std::exception
 	{
 		public:
 		virtual const char *what() const throw();
 	};
-	
+
 	class InvalidNumberOfArguments : public std::exception
 	{
 		public:
 		virtual const char *what() const throw();
 	};
-	
+
 	class AliasNotAllowedWithRoot : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+
+	class InvalidErrorCodeFormat : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+
+	class InvalidClientMaxBodySizeFormat : public std::exception
 	{
 		public:
 		virtual const char *what() const throw();
@@ -72,12 +87,13 @@ class LocationParser
   private:
 	std::string _location_block_str;
 	std::string _location;
-	std::map<std::string, void (LocationParser::*)(std::vector<std::string> &)> keyword_handlers;
+	std::map<std::string,
+		void (LocationParser::*)(std::vector<std::string> &)> keyword_handlers;
 	std::vector<std::string> _root;
 	std::vector<std::string> _index;
-	std::vector<std::string> _error_page;
-	std::vector<std::string> _client_max_body_size;
+	std::vector<uint> _client_max_body_size;
 	std::vector<std::string> _methods;
 	std::vector<std::string> _autoindex;
 	std::vector<std::string> _alias;
+	std::map<std::string, std::vector<std::string> > _error_pages;
 };

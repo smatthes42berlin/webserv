@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 09:23:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/03 18:27:09 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:56:37 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,4 @@
 #include <fstream>
 #include <numeric>
 #include <map>
-
+#include <cstdlib>

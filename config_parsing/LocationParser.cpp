@@ -13,15 +13,14 @@
 #include "LocationParser.hpp"
 #include "external.hpp"
 
-LocationParser::LocationParser()
-	: _location_block_str(""), _location("")
+LocationParser::LocationParser() : _location_block_str(""), _location("")
 {
 	this->assign_handlers();
 	return ;
 }
 
-LocationParser::LocationParser(std::string location_block_str)
-	: _location_block_str(location_block_str), _location("")
+LocationParser::LocationParser(std::string location_block_str) : _location_block_str(location_block_str),
+	_location("")
 {
 	this->assign_handlers();
 	return ;
@@ -80,7 +79,7 @@ void LocationParser::parse_location_block()
 	{
 		key_value_vector = util::split(*it_key_val, ' ');
 		std::map<std::string,
-					void (LocationParser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
+			void (LocationParser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
 		if (it != this->keyword_handlers.end())
 		{
 			(this->*(it->second))(key_value_vector);
@@ -88,9 +87,6 @@ void LocationParser::parse_location_block()
 		else
 			throw UnknownKeywordInLocationBlock();
 	}
-	// split at ' '
-	// check first word as keyword
-	// handle rest as args of keyword
 }
 
 void LocationParser::handle_root(std::vector<std::string> &key_val)
@@ -113,14 +109,103 @@ void LocationParser::handle_index(std::vector<std::string> &key_val)
 }
 void LocationParser::handle_error_page(std::vector<std::string> &key_val)
 {
-	(void)key_val;
 	std::cout << "handle error_page" << std::endl;
+	if (key_val.size() < 3)
+		throw InvalidNumberOfArguments();
+	if (!this->check_error_codes(key_val))
+		throw InvalidErrorCodeFormat();
+	for (std::vector<std::string>::const_iterator it = key_val.begin()
+		+ 1; it != key_val.end() - 1; ++it)
+	{
+		this->_error_pages[*it].push_back(key_val.back());
+	}
+}
+
+bool LocationParser::check_error_codes(std::vector<std::string> &key_val)
+{
+	int		num;
+	bool	valid;
+
+	valid = true;
+	std::vector<std::string>::iterator it_key_val;
+	for (it_key_val = key_val.begin() + 1; it_key_val != key_val.end()
+		- 1; it_key_val++)
+	{
+		if (!util::is_digits_only(*it_key_val))
+			valid = false;
+		num = atoi((*it_key_val).c_str());
+		if (num < 300 || num > 599)
+			valid = false;
+		if (!valid)
+			break ;
+	}
+	return (valid);
 }
 void LocationParser::handle_client_max_body_size(std::vector<std::string> &key_val)
 {
-	(void)key_val;
+	uint	size_in_bytes;
+
 	std::cout << "handle client_max_body_size" << std::endl;
+	if (this->_client_max_body_size.size() > 0)
+		throw DuplicateIdentifier();
+	if (key_val.size() != 2)
+		throw InvalidNumberOfArguments();
+	if (!this->check_body_size_format(key_val[1], size_in_bytes))
+		throw InvalidClientMaxBodySizeFormat();
+	this->_client_max_body_size.push_back(size_in_bytes);
 }
+
+bool LocationParser::check_body_size_format(std::string size_str,
+	uint &size_in_bytes)
+{
+	char	last_char;
+	int		size_int;
+
+	std::string num_str;
+	last_char = size_str[size_str.size() - 1];
+	if (isdigit(last_char))
+	{
+		num_str = size_str;
+	}
+	else
+	{
+		if (last_char != 'M' && last_char != 'm' && last_char != 'K'
+			&& last_char != 'k' && last_char != 'G' && last_char != 'g')
+			return (false);
+		num_str = size_str.substr(0, size_str.length() - 1);
+	}
+	if (!util::is_digits_only(num_str))
+		return (false);
+	size_int = atoi(num_str.c_str());
+	if(size_int == -1)
+		return false;
+	if (last_char == 'g' || last_char == 'G')
+	{
+		if (size_int > 2)
+			return (false);
+		size_in_bytes = size_int * 1024 * 1024 * 1024;
+	}
+	else if (last_char == 'm' || last_char == 'M')
+	{
+		if (size_int > 2048)
+			return (false);
+		size_in_bytes = size_int * 1024 * 1024;
+	}
+	else if (last_char == 'k' || last_char == 'K')
+	{
+		if (size_int > 2097152)
+			return (false);
+		size_in_bytes = size_int * 1024;
+	}
+	else
+	{
+		if (size_int == INT_MAX)
+			return (false);
+		size_in_bytes = size_int;
+	}
+	return (true);
+}
+
 void LocationParser::handle_methods(std::vector<std::string> &key_val)
 {
 	(void)key_val;
@@ -166,6 +251,16 @@ const char *LocationParser::InvalidNumberOfArguments::what() const throw()
 const char *LocationParser::AliasNotAllowedWithRoot::what() const throw()
 {
 	return ("Either the root or alias keyword can be defined inside a location block,not both!\n");
+}
+
+const char *LocationParser::InvalidErrorCodeFormat::what() const throw()
+{
+	return ("The provided error codes for the error_page keyword must be only numbers between 300 and 599!\n");
+}
+
+const char *LocationParser::InvalidClientMaxBodySizeFormat::what() const throw()
+{
+	return ("The provided argument for client_max_body is in the wrong format or the maximum value of 2GB is exceded!\n");
 }
 
 void LocationParser::print(void)

@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:47:54 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/03 17:42:23 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:06:05 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void ServerParser::parse_location_string(std::string location,
 			- index_opening_bracket_location_block - 1);
 	location_parser.set_location_block_str(location_block_str);
 	this->_location_parser.push_back(location_parser);
-	location_parser.print();
+	// location_parser.print();
 	location_parser.parse_location_block();
 }
 

@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:55:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/07 16:02:55 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:37:32 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class LocationParser
 	void handle_index(std::vector<std::string> &key_val);
 	void handle_error_page(std::vector<std::string> &key_val);
 	void handle_client_max_body_size(std::vector<std::string> &key_val);
-	void handle_methods(std::vector<std::string> &key_val);
+	void handle_allowed_methods(std::vector<std::string> &key_val);
 	void handle_autoindex(std::vector<std::string> &key_val);
 	void handle_alias(std::vector<std::string> &key_val);
 
@@ -81,6 +81,18 @@ class LocationParser
 		public:
 		virtual const char *what() const throw();
 	};
+	
+	class InvalidArgumentAllowedMethodsDirective : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
+	
+	class InvalidArgumentAutoindexDirective : public std::exception
+	{
+		public:
+		virtual const char *what() const throw();
+	};
 
 	void print(void);
 
@@ -92,8 +104,8 @@ class LocationParser
 	std::vector<std::string> _root;
 	std::vector<std::string> _index;
 	std::vector<uint> _client_max_body_size;
-	std::vector<std::string> _methods;
-	std::vector<std::string> _autoindex;
+	std::vector<bool> _autoindex;
 	std::vector<std::string> _alias;
 	std::map<std::string, std::vector<std::string> > _error_pages;
+	std::map<std::string, bool> _allowed_methods;
 };

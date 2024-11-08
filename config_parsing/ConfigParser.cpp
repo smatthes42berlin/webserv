@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:41:28 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/07 16:05:07 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:36:38 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,7 @@ static std::vector<std::string> create_allowed_config_keys()
 	keys.push_back("server_name");
 	keys.push_back("error_page");
 	keys.push_back("client_max_body_size");
-	keys.push_back("methods");
+	keys.push_back("allowed_methods");
 	keys.push_back("autoindex");
 	keys.push_back("alias");
 	keys.push_back("{");

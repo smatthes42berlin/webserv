@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:01:18 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/07 16:02:35 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:40:26 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,39 @@ void	test_bad_configs(void)
 	// test_config_names.push_back("location_block_error_page_3.conf");
 	// test_config_names.push_back("location_block_error_page_4.conf");
 	// test_config_names.push_back("location_block_error_page_5.conf");
-	test_config_names.push_back("location_block_client_body_size_1.conf");
-	test_config_names.push_back("location_block_client_body_size_2.conf");
-	test_config_names.push_back("location_block_client_body_size_3.conf");
-	test_config_names.push_back("location_block_client_body_size_4.conf");
-	test_config_names.push_back("location_block_client_body_size_5.conf");
-	test_config_names.push_back("location_block_client_body_size_6.conf");
-	test_config_names.push_back("location_block_client_body_size_7.conf");
-	test_config_names.push_back("location_block_client_body_size_8.conf");
-	test_config_names.push_back("location_block_client_body_size_9.conf");
-	test_config_names.push_back("location_block_client_body_size_10.conf");
-	test_config_names.push_back("location_block_client_body_size_11.conf");
-	test_config_names.push_back("location_block_client_body_size_12.conf");
-	test_config_names.push_back("location_block_client_body_size_13.conf");
-	test_config_names.push_back("location_block_client_body_size_14.conf");
-	test_config_names.push_back("location_block_client_body_size_15.conf");
-	test_config_names.push_back("location_block_client_body_size_16.conf");
-	test_config_names.push_back("location_block_client_body_size_17.conf");
+	// test_config_names.push_back("location_block_client_body_size_1.conf");
+	// test_config_names.push_back("location_block_client_body_size_2.conf");
+	// test_config_names.push_back("location_block_client_body_size_3.conf");
+	// test_config_names.push_back("location_block_client_body_size_4.conf");
+	// test_config_names.push_back("location_block_client_body_size_5.conf");
+	// test_config_names.push_back("location_block_client_body_size_6.conf");
+	// test_config_names.push_back("location_block_client_body_size_7.conf");
+	// test_config_names.push_back("location_block_client_body_size_8.conf");
+	// test_config_names.push_back("location_block_client_body_size_9.conf");
+	// test_config_names.push_back("location_block_client_body_size_10.conf");
+	// test_config_names.push_back("location_block_client_body_size_11.conf");
+	// test_config_names.push_back("location_block_client_body_size_12.conf");
+	// test_config_names.push_back("location_block_client_body_size_13.conf");
+	// test_config_names.push_back("location_block_client_body_size_14.conf");
+	// test_config_names.push_back("location_block_client_body_size_15.conf");
+	// test_config_names.push_back("location_block_client_body_size_16.conf");
+	// test_config_names.push_back("location_block_client_body_size_17.conf");
+	// test_config_names.push_back("location_block_allowed_methods_1.conf");
+	// test_config_names.push_back("location_block_allowed_methods_2.conf");
+	// test_config_names.push_back("location_block_allowed_methods_3.conf");
+	// test_config_names.push_back("location_block_allowed_methods_4.conf");
+	// test_config_names.push_back("location_block_allowed_methods_5.conf");
+	// test_config_names.push_back("location_block_allowed_methods_6.conf");
+	// test_config_names.push_back("location_block_allowed_methods_7.conf");
+	// test_config_names.push_back("location_block_allowed_methods_8.conf");
+	// test_config_names.push_back("location_block_allowed_methods_9.conf");
+	test_config_names.push_back("location_block_autoindex_1.conf");
+	test_config_names.push_back("location_block_autoindex_2.conf");
+	test_config_names.push_back("location_block_autoindex_3.conf");
+	test_config_names.push_back("location_block_autoindex_4.conf");
+	test_config_names.push_back("location_block_autoindex_5.conf");
+	test_config_names.push_back("location_block_autoindex_6.conf");
+	test_config_names.push_back("location_block_autoindex_7.conf");
 	for (std::vector<std::string>::const_iterator it = test_config_names.begin(); it != test_config_names.end(); ++it)
 	{
 		test_bad_config(subfolder + *it);

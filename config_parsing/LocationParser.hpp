@@ -6,12 +6,13 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 13:55:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/08 16:37:32 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:56:35 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "external.hpp"
+#include "Directive_Root.hpp"
 #include "util.hpp"
 
 class LocationParser
@@ -97,6 +98,7 @@ class LocationParser
 	void print(void);
 
   private:
+	Directive_Root root_handler;
 	std::string _location_block_str;
 	std::string _location;
 	std::map<std::string,

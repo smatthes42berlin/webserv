@@ -93,14 +93,15 @@ void LocationParser::parse_location_block()
 
 void LocationParser::handle_root(std::vector<std::string> &key_val)
 {
-	std::cout << "handle root" << std::endl;
-	if (this->_root.size() > 0)
-		throw DuplicateIdentifier();
-	if (key_val.size() != 2)
-		throw InvalidNumberOfArguments();
-	if (this->_alias.size() > 0)
-		throw AliasNotAllowedWithRoot();
-	this->_root.push_back(key_val[1]);
+	this->root_handler.check_and_add(key_val, this->_alias);
+	// std::cout << "handle root" << std::endl;
+	// if (this->_root.size() > 0)
+	// 	throw DuplicateIdentifier();
+	// if (key_val.size() != 2)
+	// 	throw InvalidNumberOfArguments();
+	// if (this->_alias.size() > 0)
+	// 	throw AliasNotAllowedWithRoot();
+	// this->_root.push_back(key_val[1]);
 }
 void LocationParser::handle_index(std::vector<std::string> &key_val)
 {
@@ -295,7 +296,7 @@ const char *LocationParser::InvalidClientMaxBodySizeFormat::what() const throw()
 const char *LocationParser::InvalidArgumentAllowedMethodsDirective::what() const throw()
 {
 	return ("Only GET,"
-		"POST and DELETE are allowed arguments for the allowed_methods directive!\n");
+			"POST and DELETE are allowed arguments for the allowed_methods directive!\n");
 }
 
 const char *LocationParser::InvalidArgumentAutoindexDirective::what() const throw()

@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:01:18 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/08 16:40:26 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:54:19 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	test_bad_config(std::string file_path);
 int	main(int argc, char *argv[])
 {
 	(void)argv;
-	if (argc <= 1)
-		normal();
-	else
-		test_bad_configs();
+	(void)argc;
+	// if (argc <= 1)
+	// 	normal();
+	// else
+	test_bad_configs();
 	return (0);
 }
 
@@ -73,10 +74,10 @@ void	test_bad_configs(void)
 	// test_config_names.push_back("invalid_keyword_inside_location_block_1.conf");
 	// test_config_names.push_back("invalid_keyword_inside_location_block_2.conf");
 	// test_config_names.push_back("invalid_keyword_inside_location_block_3.conf");
-	// test_config_names.push_back("location_block_root_1.conf");
-	// test_config_names.push_back("location_block_root_2.conf");
-	// test_config_names.push_back("location_block_root_3.conf");
-	// test_config_names.push_back("location_block_root_4.conf");
+	test_config_names.push_back("location_block_root_1.conf");
+	test_config_names.push_back("location_block_root_2.conf");
+	test_config_names.push_back("location_block_root_3.conf");
+	test_config_names.push_back("location_block_root_4.conf");
 	// test_config_names.push_back("location_block_index_1.conf");
 	// test_config_names.push_back("location_block_alias_1.conf");
 	// test_config_names.push_back("location_block_alias_2.conf");
@@ -113,13 +114,13 @@ void	test_bad_configs(void)
 	// test_config_names.push_back("location_block_allowed_methods_7.conf");
 	// test_config_names.push_back("location_block_allowed_methods_8.conf");
 	// test_config_names.push_back("location_block_allowed_methods_9.conf");
-	test_config_names.push_back("location_block_autoindex_1.conf");
-	test_config_names.push_back("location_block_autoindex_2.conf");
-	test_config_names.push_back("location_block_autoindex_3.conf");
-	test_config_names.push_back("location_block_autoindex_4.conf");
-	test_config_names.push_back("location_block_autoindex_5.conf");
-	test_config_names.push_back("location_block_autoindex_6.conf");
-	test_config_names.push_back("location_block_autoindex_7.conf");
+	// test_config_names.push_back("location_block_autoindex_1.conf");
+	// test_config_names.push_back("location_block_autoindex_2.conf");
+	// test_config_names.push_back("location_block_autoindex_3.conf");
+	// test_config_names.push_back("location_block_autoindex_4.conf");
+	// test_config_names.push_back("location_block_autoindex_5.conf");
+	// test_config_names.push_back("location_block_autoindex_6.conf");
+	// test_config_names.push_back("location_block_autoindex_7.conf");
 	for (std::vector<std::string>::const_iterator it = test_config_names.begin(); it != test_config_names.end(); ++it)
 	{
 		test_bad_config(subfolder + *it);

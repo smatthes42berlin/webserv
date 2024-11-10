@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:07:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/08 18:50:35 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/10 18:19:16 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ Directive::~Directive(void)
 void Directive::check_for_invalid_num_args(void)
 {
 	if (this->_key_val.size() < 2)
-		throw InvalidNumberOfArguments(this);
+		throw InvalidNumberOfArguments(this->_directive_name);
 	if (!this->_many_args_allowed)
 		if (this->_key_val.size() != 2)
-			throw InvalidNumberOfArguments(this);
+			throw InvalidNumberOfArguments(this->_directive_name);
 }
 
 std::string Directive::get_directive_name(void) const
@@ -78,43 +78,80 @@ void Directive::check_for_allowed_values(void)
 			if (std::find(this->_allowed_values.begin(),
 							this->_allowed_values.end(),
 							*it) == this->_allowed_values.end())
-				throw UnallowedArgumentForDirective(this);
+				throw UnallowedArgumentForDirective(this->_directive_name);
 		}
 	}
 }
 
-Directive::DuplicateIdentifier::DuplicateIdentifier(const Directive *dir)
-	: directive(dir){}
+Directive::DuplicateIdentifier::DuplicateIdentifier(std::string directive_name)
+	: _directive_name(directive_name)
+{
+}
+
+Directive::DuplicateIdentifier::~DuplicateIdentifier() throw()
+{
+}
 
 const char *Directive::DuplicateIdentifier::what() const throw()
 {
-	std::string msg = "directive: ";
-	msg += this->directive->get_directive_name().c_str();
-	msg += "\n";
-	msg += "Has been defined more than once inside a block!";
-	return (msg.c_str());
+	this->_msg = "directive: ";
+	this->_msg += this->_directive_name;
+	this->_msg += "\n";
+	this->_msg += "Has been defined more than once inside a block!";
+	return (this->_msg.c_str());
 }
 
-Directive::InvalidNumberOfArguments::InvalidNumberOfArguments(const Directive *dir)
-	: directive(dir){}
+Directive::InvalidNumberOfArguments::InvalidNumberOfArguments(std::string directive_name)
+	: _directive_name(directive_name)
+{
+}
+
+Directive::InvalidNumberOfArguments::~InvalidNumberOfArguments() throw()
+{
+}
 
 const char *Directive::InvalidNumberOfArguments::what() const throw()
 {
-	std::string msg = "directive: ";
-	msg += this->directive->get_directive_name().c_str();
-	msg += "\n";
-	msg += "An invalid number of arguments has been provided!";
-	return (msg.c_str());
+	this->_msg = "directive: ";
+	this->_msg += this->_directive_name;
+	this->_msg += "\n";
+	this->_msg += "An invalid number of arguments has been provided!";
+	return (this->_msg.c_str());
 }
 
-Directive::UnallowedArgumentForDirective::UnallowedArgumentForDirective(const Directive *dir)
-	: directive(dir){}
+Directive::UnallowedArgumentForDirective::UnallowedArgumentForDirective(std::string directive_name)
+	: _directive_name(directive_name)
+{
+}
+
+Directive::UnallowedArgumentForDirective::~UnallowedArgumentForDirective() throw()
+{
+}
 
 const char *Directive::UnallowedArgumentForDirective::what() const throw()
 {
-	std::string msg = "directive: ";
-	msg += this->directive->get_directive_name().c_str();
-	msg += "\n";
-	msg += "An unallowed argument has been provided for the directive!";
-	return (msg.c_str());
+	this->_msg = "directive: ";
+	this->_msg += this->_directive_name;
+	this->_msg += "\n";
+	this->_msg += "An unallowed argument has been provided for the directive!";
+	return (this->_msg.c_str());
+}
+
+Directive::AliasNotAllowedWithRoot::AliasNotAllowedWithRoot(std::string directive_name)
+	: _directive_name(directive_name)
+{
+}
+
+Directive::AliasNotAllowedWithRoot::~AliasNotAllowedWithRoot() throw()
+{
+}
+
+const char *Directive::AliasNotAllowedWithRoot::what() const throw()
+{
+	this->_msg = "directive: ";
+	this->_msg += this->_directive_name;
+	this->_msg += "\n";
+	this->_msg
+		+= "Either the root or alias keyword can be defined inside a location block,not both!";
+	return (this->_msg.c_str());
 }

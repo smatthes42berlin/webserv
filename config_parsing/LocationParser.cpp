@@ -87,175 +87,43 @@ void LocationParser::parse_location_block()
 			(this->*(it->second))(key_value_vector);
 		}
 		else
-			throw UnknownKeywordInLocationBlock();
+			throw UnknownKeywordInLocationBlock(key_value_vector[0]);
 	}
+}
+
+
+void LocationParser::handle_index(std::vector<std::string> &key_val)
+{
+	this->_index_handler.check_and_add(key_val);
+}
+void LocationParser::handle_error_page(std::vector<std::string> &key_val)
+{
+	this->_error_page_handler.check_and_add(key_val);
+}
+
+void LocationParser::handle_client_max_body_size(std::vector<std::string> &key_val)
+{
+	this->_client_max_body_size_handler.check_and_add(key_val);
+}
+
+
+void LocationParser::handle_allowed_methods(std::vector<std::string> &key_val)
+{
+	this->_allowed_methods_handler.check_and_add(key_val);
+}
+void LocationParser::handle_autoindex(std::vector<std::string> &key_val)
+{
+	this->_autoindex_handler.check_and_add(key_val);
 }
 
 void LocationParser::handle_root(std::vector<std::string> &key_val)
 {
-	this->root_handler.check_and_add(key_val, this->_alias);
-	// std::cout << "handle root" << std::endl;
-	// if (this->_root.size() > 0)
-	// 	throw DuplicateIdentifier();
-	// if (key_val.size() != 2)
-	// 	throw InvalidNumberOfArguments();
-	// if (this->_alias.size() > 0)
-	// 	throw AliasNotAllowedWithRoot();
-	// this->_root.push_back(key_val[1]);
-}
-void LocationParser::handle_index(std::vector<std::string> &key_val)
-{
-	std::cout << "handle index" << std::endl;
-	if (key_val.size() < 2)
-		throw InvalidNumberOfArguments();
-	util::vector_append_from_index(this->_index, key_val, 1);
-}
-void LocationParser::handle_error_page(std::vector<std::string> &key_val)
-{
-	std::cout << "handle error_page" << std::endl;
-	if (key_val.size() < 3)
-		throw InvalidNumberOfArguments();
-	if (!this->check_error_codes(key_val))
-		throw InvalidErrorCodeFormat();
-	for (std::vector<std::string>::const_iterator it = key_val.begin()
-			+ 1; it != key_val.end() - 1; ++it)
-	{
-		this->_error_pages[*it].push_back(key_val.back());
-	}
+	this->_root_handler.check_and_add(key_val, this->_alias_handler.get_config_defs());
 }
 
-bool LocationParser::check_error_codes(std::vector<std::string> &key_val)
-{
-	int		num;
-	bool	valid;
-
-	valid = true;
-	std::vector<std::string>::iterator it_key_val;
-	for (it_key_val = key_val.begin() + 1; it_key_val != key_val.end()
-			- 1; it_key_val++)
-	{
-		if (!util::is_digits_only(*it_key_val))
-			valid = false;
-		num = atoi((*it_key_val).c_str());
-		if (num < 300 || num > 599)
-			valid = false;
-		if (!valid)
-			break ;
-	}
-	return (valid);
-}
-void LocationParser::handle_client_max_body_size(std::vector<std::string> &key_val)
-{
-	uint	size_in_bytes;
-
-	std::cout << "handle client_max_body_size" << std::endl;
-	if (this->_client_max_body_size.size() > 0)
-		throw DuplicateIdentifier();
-	if (key_val.size() != 2)
-		throw InvalidNumberOfArguments();
-	if (!this->check_body_size_format(key_val[1], size_in_bytes))
-		throw InvalidClientMaxBodySizeFormat();
-	this->_client_max_body_size.push_back(size_in_bytes);
-}
-
-bool LocationParser::check_body_size_format(std::string size_str,
-											uint &size_in_bytes)
-{
-	char	last_char;
-	int		size_int;
-
-	std::string num_str;
-	last_char = size_str[size_str.size() - 1];
-	if (isdigit(last_char))
-	{
-		num_str = size_str;
-	}
-	else
-	{
-		if (last_char != 'M' && last_char != 'm' && last_char != 'K'
-			&& last_char != 'k' && last_char != 'G' && last_char != 'g')
-			return (false);
-		num_str = size_str.substr(0, size_str.length() - 1);
-	}
-	if (!util::is_digits_only(num_str))
-		return (false);
-	size_int = atoi(num_str.c_str());
-	if (size_int == -1)
-		return (false);
-	if (last_char == 'g' || last_char == 'G')
-	{
-		if (size_int > 2)
-			return (false);
-		size_in_bytes = size_int * 1024 * 1024 * 1024;
-	}
-	else if (last_char == 'm' || last_char == 'M')
-	{
-		if (size_int > 2048)
-			return (false);
-		size_in_bytes = size_int * 1024 * 1024;
-	}
-	else if (last_char == 'k' || last_char == 'K')
-	{
-		if (size_int > 2097152)
-			return (false);
-		size_in_bytes = size_int * 1024;
-	}
-	else
-	{
-		if (size_int == INT_MAX)
-			return (false);
-		size_in_bytes = size_int;
-	}
-	return (true);
-}
-
-void LocationParser::handle_allowed_methods(std::vector<std::string> &key_val)
-{
-	std::cout << "handle methods" << std::endl;
-	if (key_val.size() < 2)
-		throw InvalidNumberOfArguments();
-	this->_allowed_methods["get"] = false;
-	this->_allowed_methods["post"] = false;
-	this->_allowed_methods["delete"] = false;
-	std::vector<std::string>::iterator it_key_val;
-	for (it_key_val = key_val.begin()
-			+ 1; it_key_val != key_val.end(); it_key_val++)
-	{
-		if (*it_key_val == "GET")
-			this->_allowed_methods["get"] = true;
-		else if (*it_key_val == "POST")
-			this->_allowed_methods["post"] = true;
-		else if (*it_key_val == "DELETE")
-			this->_allowed_methods["delet"] = true;
-		else
-			throw InvalidArgumentAllowedMethodsDirective();
-	}
-}
-void LocationParser::handle_autoindex(std::vector<std::string> &key_val)
-{
-	(void)key_val;
-	std::cout << "handle autoindex" << std::endl;
-	if (key_val.size() != 2)
-		throw InvalidNumberOfArguments();
-	if (this->_autoindex.size() > 0)
-		throw DuplicateIdentifier();
-	if (key_val[1] == "on")
-		this->_autoindex.push_back(true);
-	else if (key_val[1] == "off")
-		this->_autoindex.push_back(false);
-	else
-		throw InvalidArgumentAutoindexDirective();
-}
 void LocationParser::handle_alias(std::vector<std::string> &key_val)
 {
-	std::cout << "handle alias" << std::endl;
-	if (this->_alias.size() > 0)
-		throw DuplicateIdentifier();
-	if (key_val.size() != 2)
-		throw InvalidNumberOfArguments();
-	if (this->_root.size() > 0)
-		throw AliasNotAllowedWithRoot();
-	this->_alias.push_back(key_val[1]);
+	this->_alias_handler.check_and_add(key_val, this->_root_handler.get_config_defs());
 }
 
 const char *LocationParser::EmptyLocationDefinition::what() const throw()
@@ -263,45 +131,23 @@ const char *LocationParser::EmptyLocationDefinition::what() const throw()
 	return ("The location block does not contain any directives!\n");
 }
 
+LocationParser::UnknownKeywordInLocationBlock::UnknownKeywordInLocationBlock(std::string keyword_name)
+	: _keyword_name(keyword_name)
+{
+}
+
+LocationParser::UnknownKeywordInLocationBlock::~UnknownKeywordInLocationBlock() throw()
+{
+}
+
 const char *LocationParser::UnknownKeywordInLocationBlock::what() const throw()
 {
-	return ("There was an unknown keyword encountered inside a location block!\n");
-}
-
-const char *LocationParser::DuplicateIdentifier::what() const throw()
-{
-	return ("A keyword allowing only one definition has been defined twice inside a location block!\n");
-}
-
-const char *LocationParser::InvalidNumberOfArguments::what() const throw()
-{
-	return ("An invalid number of arguments has been provided for a keyword inside a location block!\n");
-}
-
-const char *LocationParser::AliasNotAllowedWithRoot::what() const throw()
-{
-	return ("Either the root or alias keyword can be defined inside a location block,not both!\n");
-}
-
-const char *LocationParser::InvalidErrorCodeFormat::what() const throw()
-{
-	return ("The provided error codes for the error_page keyword must be only numbers between 300 and 599!\n");
-}
-
-const char *LocationParser::InvalidClientMaxBodySizeFormat::what() const throw()
-{
-	return ("The provided argument for client_max_body is in the wrong format or the maximum value of 2GB is exceded!\n");
-}
-
-const char *LocationParser::InvalidArgumentAllowedMethodsDirective::what() const throw()
-{
-	return ("Only GET,"
-			"POST and DELETE are allowed arguments for the allowed_methods directive!\n");
-}
-
-const char *LocationParser::InvalidArgumentAutoindexDirective::what() const throw()
-{
-	return ("Only on and off are allowed arguments for the autoindex directive!\n");
+	this->_msg = "keyword: ";
+	this->_msg += this->_keyword_name;
+	this->_msg += "\n";
+	this->_msg
+		+= "There was an unknown keyword encountered inside a location block!";
+	return (this->_msg.c_str());
 }
 
 void LocationParser::print(void)

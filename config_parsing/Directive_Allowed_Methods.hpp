@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Directive_Root.hpp                                 :+:      :+:    :+:   */
+/*   Directive_Allowed_Methods.hpp                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 16:42:31 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/10 18:29:16 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/10 19:22:10 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/10 19:22:34 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,19 @@
 #include "external.hpp"
 #include "util.hpp"
 
-class Directive_Root : public Directive
+class Directive_Allowed_Methods : public Directive
 {
   public:
-	Directive_Root();
-	Directive_Root(const Directive_Root &other);
-	Directive_Root &operator=(const Directive_Root &other);
-	virtual ~Directive_Root(void);
+	Directive_Allowed_Methods();
+	Directive_Allowed_Methods(const Directive_Allowed_Methods &other);
+	Directive_Allowed_Methods &operator=(const Directive_Allowed_Methods &other);
+	virtual ~Directive_Allowed_Methods(void);
 
-	void check_and_add(std::vector<std::string> key_val,
-			std::vector<std::string> &alias);
+	void check_and_add(std::vector<std::string> key_val);
 
-	std::vector<std::string> &get_config_defs(void);
+	std::map<std::string, bool> &get_config_defs(void);
 
 
   private:
-	std::vector<std::string> _config_defs;
+	std::map<std::string, bool> _config_defs;
 };

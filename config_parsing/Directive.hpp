@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:43:17 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/08 18:45:15 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/10 18:21:24 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,57 @@ class Directive
 		if (!this->_duplicate_definition_allowed)
 		{
 			if (vector.size() > 0)
-				throw DuplicateIdentifier(this);
+			{
+				throw DuplicateIdentifier(this->get_directive_name());
+			}
 		}
 	}
 
-	class InvalidNumberOfArguments
+	class InvalidNumberOfArguments : public std::exception
 	{
 		public:
-		InvalidNumberOfArguments(const Directive *dir);
+		InvalidNumberOfArguments(std::string directive_name);
+		virtual ~InvalidNumberOfArguments() throw();
 		virtual const char *what() const throw();
 
 		private:
-		Directive const *directive;
+		std::string _directive_name;
+		mutable std::string _msg;
 	};
 
-	class DuplicateIdentifier
+	class DuplicateIdentifier : public std::exception
 	{
 		public:
-		DuplicateIdentifier(const Directive *dir);
+		DuplicateIdentifier(std::string directive_name);
+		virtual ~DuplicateIdentifier() throw();
 		virtual const char *what() const throw();
 
 		private:
-		Directive const *directive;
+		std::string _directive_name;
+		mutable std::string _msg;
 	};
 
-	class UnallowedArgumentForDirective
+	class UnallowedArgumentForDirective : public std::exception
 	{
 		public:
-		UnallowedArgumentForDirective(const Directive *dir);
+		UnallowedArgumentForDirective(std::string directive_name);
+		virtual ~UnallowedArgumentForDirective() throw();
 		virtual const char *what() const throw();
 
 		private:
-		Directive const *directive;
+		std::string _directive_name;
+		mutable std::string _msg;
+	};
+
+	class AliasNotAllowedWithRoot : public std::exception
+	{
+		public:
+		AliasNotAllowedWithRoot(std::string directive_name);
+		virtual ~AliasNotAllowedWithRoot() throw();
+		virtual const char *what() const throw();
+
+		private:
+		std::string _directive_name;
+		mutable std::string _msg;
 	};
 };

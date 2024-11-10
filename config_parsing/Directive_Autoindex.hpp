@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Directive_Root.hpp                                 :+:      :+:    :+:   */
+/*   Directive_Autoindex.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,20 +15,18 @@
 #include "external.hpp"
 #include "util.hpp"
 
-class Directive_Root : public Directive
+class Directive_Autoindex : public Directive
 {
   public:
-	Directive_Root();
-	Directive_Root(const Directive_Root &other);
-	Directive_Root &operator=(const Directive_Root &other);
-	virtual ~Directive_Root(void);
+	Directive_Autoindex();
+	Directive_Autoindex(const Directive_Autoindex &other);
+	Directive_Autoindex &operator=(const Directive_Autoindex &other);
+	virtual ~Directive_Autoindex(void);
 
-	void check_and_add(std::vector<std::string> key_val,
-			std::vector<std::string> &alias);
+	void check_and_add(std::vector<std::string> key_val);
 
-	std::vector<std::string> &get_config_defs(void);
-
+	std::vector<bool> &get_config_defs(void);
 
   private:
-	std::vector<std::string> _config_defs;
+	std::vector<bool> _config_defs;
 };

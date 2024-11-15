@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Directive_Index.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 18:42:23 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/10 19:02:08 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/10 18:41:23 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:51:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

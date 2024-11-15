@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 17:07:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/10 18:19:16 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/08 17:06:27 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:53:42 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ const char *Directive::DuplicateIdentifier::what() const throw()
 	this->_msg = "directive: ";
 	this->_msg += this->_directive_name;
 	this->_msg += "\n";
-	this->_msg += "Has been defined more than once inside a block!";
+	this->_msg += "Has been defined more than once inside a block!\n";
 	return (this->_msg.c_str());
 }
 
@@ -115,7 +115,7 @@ const char *Directive::InvalidNumberOfArguments::what() const throw()
 	this->_msg = "directive: ";
 	this->_msg += this->_directive_name;
 	this->_msg += "\n";
-	this->_msg += "An invalid number of arguments has been provided!";
+	this->_msg += "An invalid number of arguments has been provided!\n";
 	return (this->_msg.c_str());
 }
 
@@ -133,7 +133,7 @@ const char *Directive::UnallowedArgumentForDirective::what() const throw()
 	this->_msg = "directive: ";
 	this->_msg += this->_directive_name;
 	this->_msg += "\n";
-	this->_msg += "An unallowed argument has been provided for the directive!";
+	this->_msg += "An unallowed argument has been provided for the directive!\n";
 	return (this->_msg.c_str());
 }
 
@@ -152,6 +152,6 @@ const char *Directive::AliasNotAllowedWithRoot::what() const throw()
 	this->_msg += this->_directive_name;
 	this->_msg += "\n";
 	this->_msg
-		+= "Either the root or alias keyword can be defined inside a location block,not both!";
+		+= "Either the root or alias keyword can be defined inside a location block,not both!\n";
 	return (this->_msg.c_str());
 }

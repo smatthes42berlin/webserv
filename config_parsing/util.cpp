@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 19:22:33 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/07 15:34:10 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 17:18:28 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ char	get_last_char(std::string &str)
 
 bool is_digits_only(const std::string &str) {
     for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
-        if (!isdigit(*it)) {
+        if (!std::isdigit(*it)) {
             return false;
         }
     }

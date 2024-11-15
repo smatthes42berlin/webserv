@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Directive_Client_Max_Body_Size.hpp                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 19:09:44 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/10 19:15:17 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/10 19:09:10 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:51:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

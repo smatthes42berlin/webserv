@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ServerParser.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 13:47:54 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/07 16:06:05 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:51:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 ServerParser::ServerParser(std::string server_str)
 	: _server_str(server_str)
 {
+	this->assign_handlers();
 	return ;
 }
 
 ServerParser::ServerParser(const ServerParser &other)
 {
+	this->assign_handlers();
 	(void)other;
 	return ;
 }
@@ -39,16 +41,21 @@ ServerParser::~ServerParser(void)
 	return ;
 }
 
+void ServerParser::assign_handlers()
+{
+	this->keyword_handlers["root"] = &ServerParser::handle_root;
+	this->keyword_handlers["index"] = &ServerParser::handle_index;
+	this->keyword_handlers["error_page"] = &ServerParser::handle_error_page;
+	this->keyword_handlers["client_max_body_size"] = &ServerParser::handle_client_max_body_size;
+	this->keyword_handlers["autoindex"] = &ServerParser::handle_autoindex;
+	this->keyword_handlers["listen"] = &ServerParser::handle_listen;
+	this->keyword_handlers["server_name"] = &ServerParser::handle_server_name;
+}
+
 void ServerParser::parse_server_block(void)
 {
 	this->handle_location_strings();
-	// extract location blocks and parse seperately
-	// parse rest and identify keywords
-	// parse_server_blocks
-	// split by ;
-	// isolate keywords
-	// isolate locations
-	// check for double location definitions
+	this->handle_server_directive_str();
 }
 
 void ServerParser::handle_location_strings(void)
@@ -105,7 +112,6 @@ void ServerParser::parse_location_string(std::string location,
 			- index_opening_bracket_location_block - 1);
 	location_parser.set_location_block_str(location_block_str);
 	this->_location_parser.push_back(location_parser);
-	// location_parser.print();
 	location_parser.parse_location_block();
 }
 
@@ -144,6 +150,83 @@ void ServerParser::get_location_string(std::string src_str,
 			break ;
 		res_location += *it;
 	}
+}
+
+void ServerParser::handle_server_directive_str(void)
+{
+	std::vector<std::string> key_value_strings;
+	std::vector<std::string> key_value_vector;
+	key_value_strings = util::split(this->_keywords_str, ';');
+	std::vector<std::string>::iterator it_key_val;
+	for (it_key_val = key_value_strings.begin(); it_key_val != key_value_strings.end(); it_key_val++)
+	{
+		key_value_vector = util::split(*it_key_val, ' ');
+		std::map<std::string,
+					void (ServerParser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
+		if (it != this->keyword_handlers.end())
+		{
+			(this->*(it->second))(key_value_vector);
+		}
+		else
+			throw UnknownKeywordInServerBlock(key_value_vector[0]);
+	}
+}
+
+
+
+void ServerParser::handle_index(std::vector<std::string> &key_val)
+{
+	this->_index_handler.check_and_add(key_val);
+}
+void ServerParser::handle_error_page(std::vector<std::string> &key_val)
+{
+	this->_error_page_handler.check_and_add(key_val);
+}
+
+void ServerParser::handle_client_max_body_size(std::vector<std::string> &key_val)
+{
+	this->_client_max_body_size_handler.check_and_add(key_val);
+}
+
+void ServerParser::handle_autoindex(std::vector<std::string> &key_val)
+{
+	this->_autoindex_handler.check_and_add(key_val);
+}
+
+void ServerParser::handle_root(std::vector<std::string> &key_val)
+{
+	std::vector<std::string> dummy;
+	this->_root_handler.check_and_add(key_val, dummy);
+}
+
+void ServerParser::handle_listen(std::vector<std::string> &key_val)
+{
+	this->_listen_handler.check_and_add(key_val);
+}
+
+void ServerParser::handle_server_name(std::vector<std::string> &key_val)
+{
+
+	this->_server_name_handler.check_and_add(key_val);
+}
+
+ServerParser::UnknownKeywordInServerBlock::UnknownKeywordInServerBlock(std::string keyword_name)
+	: _keyword_name(keyword_name)
+{
+}
+
+ServerParser::UnknownKeywordInServerBlock::~UnknownKeywordInServerBlock() throw()
+{
+}
+
+const char *ServerParser::UnknownKeywordInServerBlock::what() const throw()
+{
+	this->_msg = "keyword: ";
+	this->_msg += this->_keyword_name;
+	this->_msg += "\n";
+	this->_msg
+		+= "There was an unknown keyword encountered inside a server block!";
+	return (this->_msg.c_str());
 }
 
 const char *ServerParser::ClosingBracketForLocationBlockNotFound::what() const throw()

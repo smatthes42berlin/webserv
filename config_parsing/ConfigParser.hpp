@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 16:41:35 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/03 09:28:32 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/03 08:42:13 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:51:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

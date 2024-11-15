@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Directive_Alias.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 18:11:32 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/10 18:31:12 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/10 18:11:17 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:51:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

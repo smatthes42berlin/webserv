@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   LocationParser.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 13:55:07 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/10 19:49:01 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:51:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,4 @@ class LocationParser
 	std::map<std::string,
 				void (LocationParser::*)(std::vector<std::string> &)>
 		keyword_handlers;
-	// std::vector<bool> _autoindex;
 };

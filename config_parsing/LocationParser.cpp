@@ -1,6 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+/*   LocationParser.cpp                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:29:15 by smatthes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   LocationLocationParser.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
@@ -30,7 +42,16 @@ LocationParser::LocationParser(std::string location_block_str)
 
 LocationParser::LocationParser(const LocationParser &other)
 {
-	(void)other;
+	this->_root_handler = other._root_handler;
+	this->_alias_handler = other._alias_handler;
+	this->_index_handler = other._index_handler;
+	this->_error_page_handler = other._error_page_handler;
+	this->_client_max_body_size_handler = other._client_max_body_size_handler;
+	this->_allowed_methods_handler = other._allowed_methods_handler;
+	this->_autoindex_handler = other._autoindex_handler;
+	this->_location_block_str = other._location_block_str;
+	this->_location = other._location;
+	this->assign_handlers();
 	return ;
 }
 
@@ -38,7 +59,16 @@ LocationParser &LocationParser::operator=(const LocationParser &other)
 {
 	if (this != &other)
 	{
-		;
+		this->_root_handler = other._root_handler;
+		this->_alias_handler = other._alias_handler;
+		this->_index_handler = other._index_handler;
+		this->_error_page_handler = other._error_page_handler;
+		this->_client_max_body_size_handler = other._client_max_body_size_handler;
+		this->_allowed_methods_handler = other._allowed_methods_handler;
+		this->_autoindex_handler = other._autoindex_handler;
+		this->_location_block_str = other._location_block_str;
+		this->_location = other._location;
+		this->assign_handlers();
 	}
 	return (*this);
 }
@@ -91,7 +121,6 @@ void LocationParser::parse_location_block()
 	}
 }
 
-
 void LocationParser::handle_index(std::vector<std::string> &key_val)
 {
 	this->_index_handler.check_and_add(key_val);
@@ -106,7 +135,6 @@ void LocationParser::handle_client_max_body_size(std::vector<std::string> &key_v
 	this->_client_max_body_size_handler.check_and_add(key_val);
 }
 
-
 void LocationParser::handle_allowed_methods(std::vector<std::string> &key_val)
 {
 	this->_allowed_methods_handler.check_and_add(key_val);
@@ -118,12 +146,14 @@ void LocationParser::handle_autoindex(std::vector<std::string> &key_val)
 
 void LocationParser::handle_root(std::vector<std::string> &key_val)
 {
-	this->_root_handler.check_and_add(key_val, this->_alias_handler.get_config_defs());
+	this->_root_handler.check_and_add(key_val,
+										this->_alias_handler.get_config_defs());
 }
 
 void LocationParser::handle_alias(std::vector<std::string> &key_val)
 {
-	this->_alias_handler.check_and_add(key_val, this->_root_handler.get_config_defs());
+	this->_alias_handler.check_and_add(key_val,
+										this->_root_handler.get_config_defs());
 }
 
 const char *LocationParser::EmptyLocationDefinition::what() const throw()

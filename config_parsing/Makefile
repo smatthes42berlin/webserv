@@ -6,7 +6,7 @@
 #    By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/21 10:44:02 by smatthes          #+#    #+#              #
-#    Updated: 2024/11/10 19:40:16 by smatthes         ###   ########.fr        #
+#    Updated: 2024/11/11 14:52:31 by smatthes         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CXXFLAGS 	= -Werror -Wextra -Wall -Wpedantic -fsanitize=address,undefined -g -st
 # CXXFLAGS 	= -std=c++98
 
 TARGET 		= test
-FILES 		= main ConfigParser ServerParser LocationParser Directive Directive_Root util Directive_Alias Directive_Index Directive_Error_Page Directive_Client_Max_Body_Size Directive_Allowed_Methods Directive_Autoindex
+FILES 		= main ConfigParser ServerParser LocationParser Directive Directive_Root util Directive_Alias Directive_Index Directive_Error_Page Directive_Client_Max_Body_Size Directive_Allowed_Methods Directive_Autoindex Directive_Listen Directive_Server_Name
 SRC			= $(FILES:=.cpp)
 OBJ 		= $(SRC:.cpp=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Directive_Allowed_Methods.cpp                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smatthes  <smatthes@student.42berlin>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 19:22:59 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/10 19:30:06 by smatthes         ###   ########.fr       */
+/*   Created: 2024/11/10 19:21:44 by smatthes          #+#    #+#             */
+/*   Updated: 2024/11/11 14:51:20 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

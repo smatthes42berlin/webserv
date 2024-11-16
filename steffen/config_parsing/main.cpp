@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/15 16:38:46 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:02:18 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	normal(void)
 	try
 	{
 		parser.parse_config();
-		parser.print_file_line_by_line();
-		parser.print_server_blocks();
+		// parser.print_file_line_by_line();
+		// parser.print_server_blocks();
 	}
 	catch (std::exception &err)
 	{

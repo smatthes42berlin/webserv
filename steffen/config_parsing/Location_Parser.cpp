@@ -156,6 +156,46 @@ void Location_Parser::handle_alias(std::vector<std::string> &key_val)
 										this->_root_handler.get_config_defs());
 }
 
+std::string Location_Parser::get_location(void)
+{
+	return (this->_location);
+}
+
+Directive_Root &Location_Parser::get_root_handler()
+{
+	return (this->_root_handler);
+}
+
+Directive_Alias &Location_Parser::get_alias_handler()
+{
+	return (this->_alias_handler);
+}
+
+Directive_Index &Location_Parser::get_index_handler()
+{
+	return (this->_index_handler);
+}
+
+Directive_Error_Page &Location_Parser::get_error_page_handler()
+{
+	return (this->_error_page_handler);
+}
+
+Directive_Client_Max_Body_Size &Location_Parser::get_client_max_body_size_handler()
+{
+	return (this->_client_max_body_size_handler);
+}
+
+Directive_Autoindex &Location_Parser::get_autoindex_handler()
+{
+	return (this->_autoindex_handler);
+}
+
+Directive_Allowed_Methods &Location_Parser::get_allowed_methods_handler()
+{
+	return (this->_allowed_methods_handler);
+}
+
 const char *Location_Parser::EmptyLocationDefinition::what() const throw()
 {
 	return ("The location block does not contain any directives!\n");

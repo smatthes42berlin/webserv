@@ -65,6 +65,15 @@ class Location_Parser
 
 	void print(void);
 
+	std::string get_location(void);
+	Directive_Root &get_root_handler();
+	Directive_Alias &get_alias_handler();
+	Directive_Index &get_index_handler();
+	Directive_Error_Page &get_error_page_handler();
+	Directive_Client_Max_Body_Size &get_client_max_body_size_handler();
+	Directive_Autoindex &get_autoindex_handler();
+	Directive_Allowed_Methods &get_allowed_methods_handler();
+
   private:
 	Directive_Root _root_handler;
 	Directive_Alias _alias_handler;

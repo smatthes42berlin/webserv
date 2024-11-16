@@ -15,6 +15,7 @@
 #include "util.hpp"
 #include "Server_Parser.hpp"
 #include "Server.hpp"
+#include "Server_Creator.hpp"
 
 class Config_Parser
 {
@@ -24,7 +25,7 @@ class Config_Parser
 	Config_Parser &operator=(const Config_Parser &other);
 	virtual ~Config_Parser(void);
 
-	std::vector<Server> Config_Parser::parse_config();
+	std::vector<Server> parse_config();
 	void read_whole_file();
 	void check_file_access();
 	void remove_empty_lines();

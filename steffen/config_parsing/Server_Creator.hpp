@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #pragma once
-#include "external.hpp"
-#include "util.hpp"
+#include "Route.hpp"
 #include "Server.hpp"
 #include "Server_Parser.hpp"
+#include "Route_Creator.hpp"
+#include "external.hpp"
+#include "util.hpp"
 
 class Server_Creator
 {
@@ -27,5 +29,10 @@ class Server_Creator
 	std::vector<Server> create_servers(std::vector<Server_Parser> server_parser);
 
   private:
-
+	void server_assign_root(Server &new_server, Server_Parser &cur_parser);
+	void server_assign_autoindex(Server &new_server, Server_Parser &cur_parser);
+	void server_assign_client_max_body_size(Server &new_server, Server_Parser &cur_parser);
+	void server_assign_index(Server &new_server, Server_Parser &cur_parser);
+	void server_assign_server_name(Server &new_server, Server_Parser &cur_parser);
+	void server_assign_error_pages(Server &new_server, Server_Parser &cur_parser);
 };

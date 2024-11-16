@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:21:44 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/15 17:12:34 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:04:52 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ void Directive_Allowed_Methods::check_and_add(std::vector<std::string> key_val)
 	this->set_key_val(key_val);
 	this->check_for_invalid_num_args();
 	this->check_for_allowed_values();
-	this->_config_defs["get"] = true;
-	this->_config_defs["post"] = false;
-	this->_config_defs["delete"] = false;
 	std::vector<std::string>::iterator it_key_val;
 	for (it_key_val = key_val.begin()
 			+ 1; it_key_val != key_val.end(); it_key_val++)

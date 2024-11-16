@@ -13,7 +13,8 @@
 #include "Server_Parser.hpp"
 #include "external.hpp"
 
-Server_Parser::Server_Parser(std::string server_str) : _server_str(server_str)
+Server_Parser::Server_Parser(std::string server_str)
+	: _server_str(server_str)
 {
 	this->assign_handlers();
 	return ;
@@ -22,7 +23,16 @@ Server_Parser::Server_Parser(std::string server_str) : _server_str(server_str)
 Server_Parser::Server_Parser(const Server_Parser &other)
 {
 	this->assign_handlers();
-	(void)other;
+	this->_server_str = other._server_str;
+	this->_keywords_str = other._keywords_str;
+	this->_location_parser = other._location_parser;
+	this->_root_handler = other._root_handler;
+	this->_index_handler = other._index_handler;
+	this->_error_page_handler = other._error_page_handler;
+	this->_client_max_body_size_handler = other._client_max_body_size_handler;
+	this->_autoindex_handler = other._autoindex_handler;
+	this->_listen_handler = other._listen_handler;
+	this->_server_name_handler = other._server_name_handler;
 	return ;
 }
 
@@ -30,7 +40,16 @@ Server_Parser &Server_Parser::operator=(const Server_Parser &other)
 {
 	if (this != &other)
 	{
-		;
+		this->_server_str = other._server_str;
+		this->_keywords_str = other._keywords_str;
+		this->_location_parser = other._location_parser;
+		this->_root_handler = other._root_handler;
+		this->_index_handler = other._index_handler;
+		this->_error_page_handler = other._error_page_handler;
+		this->_client_max_body_size_handler = other._client_max_body_size_handler;
+		this->_autoindex_handler = other._autoindex_handler;
+		this->_listen_handler = other._listen_handler;
+		this->_server_name_handler = other._server_name_handler;
 	}
 	return (*this);
 }
@@ -81,25 +100,26 @@ int Server_Parser::extract_location_block(std::string &remaining_server_block)
 		return (-1);
 	}
 	std::string location = this->get_location(remaining_server_block,
-			index_start_location_block, index_opening_bracket_location_block);
+												index_start_location_block,
+												index_opening_bracket_location_block);
 	index_closing_bracket_location_block = util::find_matching_closing_bracket_no_nesting(remaining_server_block,
-			index_opening_bracket_location_block);
+																							index_opening_bracket_location_block);
 	if (index_closing_bracket_location_block < 0)
 		throw ClosingBracketForLocationBlockNotFound();
 	this->parse_location_string(location, remaining_server_block,
-		index_opening_bracket_location_block,
-		index_closing_bracket_location_block);
+			index_opening_bracket_location_block,
+			index_closing_bracket_location_block);
 	this->_keywords_str += remaining_server_block.substr(0,
-			index_start_location_block);
+															index_start_location_block);
 	remaining_server_block = remaining_server_block.substr(index_closing_bracket_location_block
 			+ 1);
 	return (1);
 }
 
 void Server_Parser::parse_location_string(std::string location,
-	std::string remaining_server_block,
-	int index_opening_bracket_location_block,
-	int index_closing_bracket_location_block)
+											std::string remaining_server_block,
+											int index_opening_bracket_location_block,
+											int index_closing_bracket_location_block)
 {
 	Location_Parser	location_parser;
 
@@ -109,16 +129,19 @@ void Server_Parser::parse_location_string(std::string location,
 			+ 1, index_closing_bracket_location_block
 			- index_opening_bracket_location_block - 1);
 	location_parser.set_location_block_str(location_block_str);
-	this->_location_parser.push_back(location_parser);
 	location_parser.parse_location_block();
+	this->_location_parser.push_back(location_parser);
 }
 
 std::string Server_Parser::get_location(std::string remaining_server_block,
-	int index_start_location_block, int &index_opening_bracket_location_block)
+										int index_start_location_block,
+										int &index_opening_bracket_location_block)
 {
 	std::string location = "";
 	std::vector<std::string> location_split = util::split(remaining_server_block,
-			' ', 3, index_start_location_block);
+															' ',
+															3,
+															index_start_location_block);
 	if (location_split[1][0] == '{' || location_split[1][0] == '}')
 		throw NoLocationDefinedInsideLocationBlock();
 	this->get_location_string(location_split[1], location);
@@ -137,7 +160,7 @@ std::string Server_Parser::get_location(std::string remaining_server_block,
 }
 
 void Server_Parser::get_location_string(std::string src_str,
-	std::string &res_location)
+										std::string &res_location)
 {
 	for (std::string::iterator it = src_str.begin(); it != src_str.end(); ++it)
 	{
@@ -157,7 +180,7 @@ void Server_Parser::handle_server_directive_str(void)
 	{
 		key_value_vector = util::split(*it_key_val, ' ');
 		std::map<std::string,
-			void (Server_Parser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
+					void (Server_Parser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
 		if (it != this->keyword_handlers.end())
 		{
 			(this->*(it->second))(key_value_vector);
@@ -235,7 +258,8 @@ Directive_Server_Name &Server_Parser::get_server_name_handler()
 	return (this->_server_name_handler);
 }
 
-Server_Parser::UnknownKeywordInServerBlock::UnknownKeywordInServerBlock(std::string keyword_name) : _keyword_name(keyword_name)
+Server_Parser::UnknownKeywordInServerBlock::UnknownKeywordInServerBlock(std::string keyword_name)
+	: _keyword_name(keyword_name)
 {
 }
 

@@ -6,7 +6,7 @@
 /*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:50:18 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/15 17:46:15 by smatthes         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:47:19 by smatthes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ Directive_Listen::Directive_Listen()
 	return ;
 }
 
-Directive_Listen::Directive_Listen(const Directive_Listen &other) : Directive()
+Directive_Listen::Directive_Listen(const Directive_Listen &other)
+	: Directive()
 {
 	this->_config_defs = other._config_defs;
+	this->_ips_n_ports = other._ips_n_ports;
 	return ;
 }
 
@@ -31,6 +33,7 @@ Directive_Listen &Directive_Listen::operator=(const Directive_Listen &other)
 {
 	if (this != &other)
 	{
+		this->_ips_n_ports = other._ips_n_ports;
 		this->_config_defs = other._config_defs;
 	}
 	return (*this);
@@ -69,7 +72,8 @@ void Directive_Listen::process_port_n_ip(std::string port_n_ip)
 void Directive_Listen::check_port_address_combination_use(util::Address &new_address)
 {
 	std::vector<util::Address>::iterator it = std::find_if(this->_ips_n_ports.begin(),
-			this->_ips_n_ports.end(), util::Address_Comparator(new_address));
+															this->_ips_n_ports.end(),
+															util::Address_Comparator(new_address));
 	if (it != this->_ips_n_ports.end())
 		throw DuplicateListenDirective(new_address.port, new_address.ip);
 }
@@ -105,7 +109,8 @@ void Directive_Listen::verify_ip_str(std::string &ip_str)
 }
 
 void Directive_Listen::check_port_n_ip_basic_form(std::string port_n_ip,
-	std::string &port_str, std::string &ip_str)
+													std::string &port_str,
+													std::string &ip_str)
 {
 	int	colon_count;
 
@@ -117,7 +122,7 @@ void Directive_Listen::check_port_n_ip_basic_form(std::string port_n_ip,
 	else
 	{
 		std::vector<std::string> ip_port_separated = util::split(port_n_ip,
-				':');
+																	':');
 		if (ip_port_separated.size() < 2)
 			throw InvalidListenArgumentFormat(port_n_ip);
 		ip_str = ip_port_separated[0];
@@ -130,7 +135,8 @@ std::vector<util::Address> &Directive_Listen::get_config_defs(void)
 	return (this->_ips_n_ports);
 }
 
-Directive_Listen::InvalidListenArgumentFormat::InvalidListenArgumentFormat(std::string argument) : _argument(argument)
+Directive_Listen::InvalidListenArgumentFormat::InvalidListenArgumentFormat(std::string argument)
+	: _argument(argument)
 {
 }
 
@@ -151,7 +157,8 @@ const char *Directive_Listen::InvalidListenArgumentFormat::what() const throw()
 }
 
 Directive_Listen::DuplicateListenDirective::DuplicateListenDirective(int port,
-	std::string ip) : _port(port), _ip(ip)
+																		std::string ip)
+	: _port(port), _ip(ip)
 {
 }
 

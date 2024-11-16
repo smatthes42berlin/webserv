@@ -1,0 +1,8 @@
+- check, whether specified error page really exists -> watch out for root, alias ...
+- if not, dont add to config
+
+- Create multiple Servers; if multiple listens are defined
+
+- handle more directives like return, look at subject
+
+- check for duplicate locations within one server

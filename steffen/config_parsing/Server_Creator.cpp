@@ -53,6 +53,7 @@ std::vector<Server> Server_Creator::create_servers(std::vector<Server_Parser> se
 		this->server_assign_index(new_server, *it);
 		this->server_assign_server_name(new_server, *it);
 		this->server_assign_error_pages(new_server, *it);
+		this->server_assign_return(new_server, *it);
 		route_creator.create_routes(new_server, *it);
 		std::vector<util::Address> listen_directives = it->get_listen_handler().get_config_defs();
 		if (listen_directives.size() == 0)
@@ -156,3 +157,13 @@ void Server_Creator::server_assign_error_pages(Server &new_server,
 	}
 	new_server.set_error_pages(new_error_pages);
 }
+
+void Server_Creator::server_assign_return(Server &new_server,
+														Server_Parser &cur_parser)
+{
+	std::vector<util::Return_Definition> config_defs = cur_parser.get_return_handler().get_config_defs();
+	if (config_defs.size() > 0)
+		new_server.set_return(config_defs[0].status_code, config_defs[0].url);
+}
+
+

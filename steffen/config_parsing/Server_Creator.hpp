@@ -30,6 +30,7 @@ class Server_Creator
 
   private:
 	void server_assign_root(Server &new_server, Server_Parser &cur_parser);
+	void server_assign_return(Server &new_server, Server_Parser &cur_parser);
 	void server_assign_autoindex(Server &new_server, Server_Parser &cur_parser);
 	void server_assign_client_max_body_size(Server &new_server, Server_Parser &cur_parser);
 	void server_assign_index(Server &new_server, Server_Parser &cur_parser);

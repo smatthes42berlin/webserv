@@ -25,16 +25,14 @@
 #include "Location_Parser.hpp"
 #include "external.hpp"
 
-Location_Parser::Location_Parser()
-	: _location_block_str(""), _location("")
+Location_Parser::Location_Parser() : _location_block_str(""), _location("")
 {
 	this->assign_handlers();
 	return ;
 }
 
-Location_Parser::Location_Parser(std::string location_block_str)
-	: _location_block_str(location_block_str),
-		_location("")
+Location_Parser::Location_Parser(std::string location_block_str) : _location_block_str(location_block_str),
+	_location("")
 {
 	this->assign_handlers();
 	return ;
@@ -51,6 +49,7 @@ Location_Parser::Location_Parser(const Location_Parser &other)
 	this->_autoindex_handler = other._autoindex_handler;
 	this->_location_block_str = other._location_block_str;
 	this->_location = other._location;
+	this->_return_handler = other._return_handler;
 	this->assign_handlers();
 	return ;
 }
@@ -68,6 +67,7 @@ Location_Parser &Location_Parser::operator=(const Location_Parser &other)
 		this->_autoindex_handler = other._autoindex_handler;
 		this->_location_block_str = other._location_block_str;
 		this->_location = other._location;
+		this->_return_handler = other._return_handler;
 		this->assign_handlers();
 	}
 	return (*this);
@@ -87,6 +87,7 @@ void Location_Parser::assign_handlers()
 	this->keyword_handlers["client_max_body_size"] = &Location_Parser::handle_client_max_body_size;
 	this->keyword_handlers["allowed_methods"] = &Location_Parser::handle_allowed_methods;
 	this->keyword_handlers["autoindex"] = &Location_Parser::handle_autoindex;
+	this->keyword_handlers["return"] = &Location_Parser::handle_return ;
 }
 
 void Location_Parser::set_location_block_str(std::string location_block_str)
@@ -111,7 +112,7 @@ void Location_Parser::parse_location_block()
 	{
 		key_value_vector = util::split(*it_key_val, ' ');
 		std::map<std::string,
-					void (Location_Parser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
+			void (Location_Parser::*)(std::vector<std::string> &)>::iterator it = this->keyword_handlers.find(key_value_vector[0]);
 		if (it != this->keyword_handlers.end())
 		{
 			(this->*(it->second))(key_value_vector);
@@ -147,13 +148,18 @@ void Location_Parser::handle_autoindex(std::vector<std::string> &key_val)
 void Location_Parser::handle_root(std::vector<std::string> &key_val)
 {
 	this->_root_handler.check_and_add(key_val,
-										this->_alias_handler.get_config_defs());
+		this->_alias_handler.get_config_defs());
 }
 
 void Location_Parser::handle_alias(std::vector<std::string> &key_val)
 {
 	this->_alias_handler.check_and_add(key_val,
-										this->_root_handler.get_config_defs());
+		this->_root_handler.get_config_defs());
+}
+
+void Location_Parser::handle_return(std::vector<std::string> &key_val)
+{
+	this->_return_handler.check_and_add(key_val);
 }
 
 std::string Location_Parser::get_location(void)
@@ -196,13 +202,17 @@ Directive_Allowed_Methods &Location_Parser::get_allowed_methods_handler()
 	return (this->_allowed_methods_handler);
 }
 
+Directive_Return &Location_Parser::get_return_handler()
+{
+	return (this->_return_handler);
+}
+
 const char *Location_Parser::EmptyLocationDefinition::what() const throw()
 {
 	return ("The location block does not contain any directives!\n");
 }
 
-Location_Parser::UnknownKeywordInLocationBlock::UnknownKeywordInLocationBlock(std::string keyword_name)
-	: _keyword_name(keyword_name)
+Location_Parser::UnknownKeywordInLocationBlock::UnknownKeywordInLocationBlock(std::string keyword_name) : _keyword_name(keyword_name)
 {
 }
 

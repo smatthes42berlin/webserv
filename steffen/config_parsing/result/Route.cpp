@@ -1,25 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Route.cpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/16 18:54:35 by smatthes         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Route.hpp"
 #include "external.hpp"
 
-Route::Route()
-	: _location(""),
-		_root("./"),
-		_alias_is_defined(false),
-		_alias(""),
-		_client_max_body_size(1024 * 1024),
-		_autoindex(false)
+Route::Route() : _location(""), _root("./"), _alias_is_defined(false),
+	_alias(""), _return_is_defined(false), _client_max_body_size(1024 * 1024),
+	_autoindex(false)
 {
 	this->_allowed_methods["get"] = true;
 	this->_allowed_methods["post"] = false;
@@ -35,6 +19,8 @@ Route::Route(const Route &other)
 	this->_root = other.get_root();
 	this->_alias_is_defined = other.get_alias_is_defined();
 	this->_alias = other.get_alias();
+	this->_return_is_defined = other.get_return_is_defined();
+	this->_return = other.get_return();
 	this->_client_max_body_size = other.get_client_max_body_size();
 	this->_autoindex = other.get_autoindex();
 	this->_allowed_methods = other.get_allowed_methods();
@@ -51,6 +37,8 @@ Route &Route::operator=(const Route &other)
 		this->_root = other.get_root();
 		this->_alias_is_defined = other.get_alias_is_defined();
 		this->_alias = other.get_alias();
+		this->_return_is_defined = other.get_return_is_defined();
+		this->_return = other.get_return();
 		this->_client_max_body_size = other.get_client_max_body_size();
 		this->_autoindex = other.get_autoindex();
 		this->_allowed_methods = other.get_allowed_methods();
@@ -86,6 +74,18 @@ void Route::set_alias(std::string new_val)
 	this->_alias = new_val;
 }
 
+void Route::set_return_is_defined(bool new_val)
+{
+	this->_return_is_defined = new_val;
+}
+
+void Route::set_return(int http_code, std::string url)
+{
+	this->set_return_is_defined(true);
+	this->_return.status_code = http_code;
+	this->_return.url = url;
+}
+
 void Route::set_client_max_body_size(uint new_val)
 {
 	this->_client_max_body_size = new_val;
@@ -102,7 +102,7 @@ void Route::set_index(std::vector<std::string> new_val)
 }
 
 void Route::set_error_pages(std::map<std::string,
-										std::vector<std::string> > new_val)
+	std::vector<std::string> > new_val)
 {
 	this->_error_pages = new_val;
 }
@@ -135,7 +135,7 @@ std::map<std::string, std::vector<std::string> > Route::get_error_pages() const
 std::vector<std::string> Route::get_error_page(std::string page) const
 {
 	std::map<std::string,
-				std::vector<std::string> >::const_iterator it = this->_error_pages.find(page);
+		std::vector<std::string> >::const_iterator it = this->_error_pages.find(page);
 	if (it != this->_error_pages.end())
 	{
 		return (it->second);
@@ -164,6 +164,16 @@ std::string Route::get_alias() const
 	return (this->_alias);
 }
 
+bool Route::get_return_is_defined() const
+{
+	return (this->_return_is_defined);
+}
+
+util::Return_Definition Route::get_return() const
+{
+	return (this->_return);
+}
+
 std::map<std::string, bool> Route::get_allowed_methods() const
 {
 	return (this->_allowed_methods);
@@ -172,7 +182,7 @@ std::map<std::string, bool> Route::get_allowed_methods() const
 bool Route::is_method_allowed(std::string method)
 {
 	std::map<std::string,
-				bool>::iterator it = this->_allowed_methods.find(method);
+		bool>::iterator it = this->_allowed_methods.find(method);
 	if (it != this->_allowed_methods.end())
 	{
 		if (it->second)
@@ -183,13 +193,9 @@ bool Route::is_method_allowed(std::string method)
 
 std::ostream &operator<<(std::ostream &os, Route const &route)
 {
-	
 	std::map<std::string, std::string> col_map = util::get_color_map();
-
-	os << std::endl
-		<< std::endl
-		<< std::endl;
-	os << "Route";
+	os << std::endl;
+	os << ">>>>>>>>>>>>> >Route<<<<<<<<<<<<<<<<";
 	os << std::endl;
 	os << col_map["red"];
 	os << "[string] ";
@@ -220,6 +226,23 @@ std::ostream &operator<<(std::ostream &os, Route const &route)
 	os << route.get_alias();
 	os << std::endl;
 	os << col_map["red"];
+	os << "[bool] ";
+	os << col_map["green"];
+	os << "return_is_defined: ";
+	os << col_map["reset"];
+	os << route.get_return_is_defined();
+	os << std::endl;
+	os << col_map["red"];
+	os << "[Return_Definition] ";
+	os << col_map["green"];
+	os << "return: ";
+	os << col_map["reset"];
+	util::Return_Definition ret_def = route.get_return();
+	os << ret_def.status_code;
+	os << " ";
+	os << ret_def.url;
+	os << std::endl;
+	os << col_map["red"];
 	os << "[uint] ";
 	os << col_map["green"];
 	os << "client_max_body_size: ";
@@ -241,9 +264,7 @@ std::ostream &operator<<(std::ostream &os, Route const &route)
 	os << std::endl;
 	std::map<std::string, bool> allowed_methods = route.get_allowed_methods();
 	for (std::map<std::string,
-					bool>::iterator it = allowed_methods.begin();
-			it != allowed_methods.end();
-			++it)
+		bool>::iterator it = allowed_methods.begin(); it != allowed_methods.end(); ++it)
 	{
 		os << it->first << ": " << it->second;
 		os << std::endl;
@@ -261,18 +282,15 @@ std::ostream &operator<<(std::ostream &os, Route const &route)
 	}
 	os << std::endl;
 	os << col_map["red"];
-	os << "[map<string, vector<string>>] ";
+	os << "[map<string, vector<string> >] ";
 	os << col_map["green"];
 	os << "error_pages: ";
 	os << col_map["reset"];
 	os << std::endl;
 	std::map<std::string,
-				std::vector<std::string> >
-		error_pages = route.get_error_pages();
+		std::vector<std::string> > error_pages = route.get_error_pages();
 	for (std::map<std::string,
-					std::vector<std::string> >::iterator it = error_pages.begin();
-			it != error_pages.end();
-			++it)
+		std::vector<std::string> >::iterator it = error_pages.begin(); it != error_pages.end(); ++it)
 	{
 		os << it->first << " ";
 		const std::vector<std::string> &values = it->second;
@@ -282,8 +300,7 @@ std::ostream &operator<<(std::ostream &os, Route const &route)
 		}
 		os << std::endl;
 	}
-	os << std::endl
-		<< std::endl
-		<< std::endl;
+	os << ">>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<";
+	os << std::endl;
 	return (os);
 }

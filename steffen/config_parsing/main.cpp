@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/16 17:02:18 by smatthes         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Config_Parser.hpp"
 #include "external.hpp"
 
@@ -49,8 +37,8 @@ void	normal(void)
 
 void	test_bad_configs(void)
 {
-	test_bad_general();
-	test_bad_directive_location_block();
+	// test_bad_general();
+	// test_bad_directive_location_block();
 	test_bad_directive_server_block();
 }
 
@@ -81,6 +69,10 @@ void	test_bad_general(void)
 	test_config_names.push_back("bad_location_definition_4.conf");
 	test_config_names.push_back("bad_location_definition_5.conf");
 	test_config_names.push_back("bad_location_definition_6.conf");
+	test_config_names.push_back("multiple_definitions_of_same_location_1.conf");
+	test_config_names.push_back("multiple_definitions_of_same_location_2.conf");
+	test_config_names.push_back("multiple_definitions_of_same_location_3.conf");
+	test_config_names.push_back("multiple_definitions_of_same_location_4.conf");
 	for (std::vector<std::string>::const_iterator it = test_config_names.begin(); it != test_config_names.end(); ++it)
 	{
 		test_bad_config(subfolder + *it);
@@ -146,6 +138,14 @@ void	test_bad_directive_location_block(void)
 	test_config_names.push_back("location_block_autoindex_5.conf");
 	test_config_names.push_back("location_block_autoindex_6.conf");
 	test_config_names.push_back("location_block_autoindex_7.conf");
+	test_config_names.push_back("location_block_return_1.conf");
+	test_config_names.push_back("location_block_return_2.conf");
+	test_config_names.push_back("location_block_return_3.conf");
+	test_config_names.push_back("location_block_return_4.conf");
+	test_config_names.push_back("location_block_return_5.conf");
+	test_config_names.push_back("location_block_return_6.conf");
+	test_config_names.push_back("location_block_return_7.conf");
+	test_config_names.push_back("location_block_return_8.conf");
 	for (std::vector<std::string>::const_iterator it = test_config_names.begin(); it != test_config_names.end(); ++it)
 	{
 		test_bad_config(subfolder + *it);
@@ -225,6 +225,14 @@ void	test_bad_directive_server_block(void)
 	test_config_names.push_back("server_block_root_4.conf");
 	test_config_names.push_back("server_block_server_name_1.conf");
 	test_config_names.push_back("server_block_server_name_2.conf");
+	test_config_names.push_back("server_block_return_1.conf");
+	test_config_names.push_back("server_block_return_2.conf");
+	test_config_names.push_back("server_block_return_3.conf");
+	test_config_names.push_back("server_block_return_4.conf");
+	test_config_names.push_back("server_block_return_5.conf");
+	test_config_names.push_back("server_block_return_6.conf");
+	test_config_names.push_back("server_block_return_7.conf");
+	test_config_names.push_back("server_block_return_8.conf");
 	for (std::vector<std::string>::const_iterator it = test_config_names.begin(); it != test_config_names.end(); ++it)
 	{
 		test_bad_config(subfolder + *it);

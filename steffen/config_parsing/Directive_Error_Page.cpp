@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Directive_Error_Page.cpp                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/10 18:48:28 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/15 17:45:00 by smatthes         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Directive_Error_Page.hpp"
 #include "external.hpp"
 
@@ -66,13 +54,12 @@ bool Directive_Error_Page::check_error_codes()
 	for (it_key_val = this->_key_val.begin() + 1; it_key_val != this->_key_val.end()
 			- 1; it_key_val++)
 	{
-		if (!util::is_digits_only(*it_key_val))
+		num = util::is_valid_http_code(*it_key_val);
+		if(num == -1)
+		{
 			valid = false;
-		num = atoi((*it_key_val).c_str());
-		if (num < 300 || num > 599)
-			valid = false;
-		if (!valid)
-			break ;
+			break;
+		}
 	}
 	return (valid);
 }

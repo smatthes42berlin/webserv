@@ -1,22 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Server.cpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/16 19:50:46 by smatthes         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Server.hpp"
 #include "external.hpp"
 
 Server::Server()
 	: _root("./"),
 		_autoindex(false),
-		_client_max_body_size(1024 * 1024)
+		_client_max_body_size(1024 * 1024),
+		_return_is_defined(false)
 {
 	this->set_listen(4000, "0.0.0.0");
 	this->_index.push_back("index.html");
@@ -34,6 +23,8 @@ Server::Server(const Server &other)
 	this->_server_name = other._server_name;
 	this->_error_pages = other._error_pages;
 	this->_routes = other._routes;
+	this->_return_is_defined = other.get_return_is_defined();
+	this->_return = other.get_return();
 	return ;
 }
 
@@ -49,6 +40,8 @@ Server &Server::operator=(const Server &other)
 		this->_server_name = other._server_name;
 		this->_error_pages = other._error_pages;
 		this->_routes = other._routes;
+		this->_return_is_defined = other.get_return_is_defined();
+		this->_return = other.get_return();
 	}
 	return (*this);
 }
@@ -100,6 +93,18 @@ void Server::set_routes(std::vector<Route> new_val)
 	this->_routes = new_val;
 }
 
+void Server::set_return_is_defined(bool new_val)
+{
+	this->_return_is_defined = new_val;
+}
+
+void Server::set_return(int http_code, std::string url)
+{
+	this->set_return_is_defined(true);
+	this->_return.status_code = http_code;
+	this->_return.url = url;
+}
+
 void Server::add_route(Route new_val)
 {
 	this->_routes.push_back(new_val);
@@ -144,17 +149,24 @@ std::vector<std::string> Server::get_server_name() const
 	return (this->_server_name);
 }
 
-	std::vector<Route> _routes;
+bool Server::get_return_is_defined() const
+{
+	return (this->_return_is_defined);
+}
+
+util::Return_Definition Server::get_return() const
+{
+	return (this->_return);
+}
+
 
 std::ostream &operator<<(std::ostream &os, Server const &server)
 {
 	
 	std::map<std::string, std::string> col_map = util::get_color_map();
 
-	os << std::endl
-		<< std::endl
-		<< std::endl;
-	os << "Server";
+	os << std::endl;
+	os << "*************Server****************";
 	os << std::endl;
 	os << col_map["red"];
 	os << "[Address] ";
@@ -163,8 +175,18 @@ std::ostream &operator<<(std::ostream &os, Server const &server)
 	util::Address listen = server.get_listen();
 	os << col_map["reset"];
 	os << std::endl;
+	os << col_map["red"];
+	os << "  [string] ";
+	os << col_map["green"];
+	os << "ip: ";
+	os << col_map["reset"];
 	os << listen.ip;
 	os << std::endl;
+	os << col_map["red"];
+	os << "  [int] ";
+	os << col_map["green"];
+	os << "port: ";
+	os << col_map["reset"];
 	os << listen.port;
 	os << std::endl;
 	os << col_map["red"];
@@ -173,6 +195,23 @@ std::ostream &operator<<(std::ostream &os, Server const &server)
 	os << "root: ";
 	os << col_map["reset"];
 	os << server.get_root();
+	os << std::endl;
+	os << col_map["red"];
+	os << "[bool] ";
+	os << col_map["green"];
+	os << "return_is_defined: ";
+	os << col_map["reset"];
+	os << server.get_return_is_defined();
+	os << std::endl;
+	os << col_map["red"];
+	os << "[Return_Definition] ";
+	os << col_map["green"];
+	os << "return: ";
+	os << col_map["reset"];
+	util::Return_Definition ret_def = server.get_return();
+	os << ret_def.status_code;
+	os << " ";
+	os << ret_def.url;
 	os << std::endl;
 	os << col_map["red"];
 	os << "[uint] ";
@@ -237,8 +276,7 @@ std::ostream &operator<<(std::ostream &os, Server const &server)
 	{
 		os << *vec_it;
 	}
-	os << std::endl
-		<< std::endl
-		<< std::endl;
+	os << "***********************************";
+	os << std::endl;
 	return (os);
 }

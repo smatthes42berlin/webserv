@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   util.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smatthes <smatthes@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 14:55:39 by smatthes          #+#    #+#             */
-/*   Updated: 2024/11/16 18:01:23 by smatthes         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "external.hpp"
 #include "util.hpp"
 
@@ -64,7 +52,7 @@ std::vector<std::string> split(const std::string &str, char delimiter)
 }
 
 std::vector<std::string> split(const std::string &str, char delimiter,
-		size_t maxTokens = std::string::npos)
+	size_t maxTokens = std::string::npos)
 {
 	size_t	tokenCount;
 
@@ -96,7 +84,7 @@ std::vector<std::string> split(const std::string &str, char delimiter,
 }
 
 std::vector<std::string> split(const std::string &str, char delimiter,
-		size_t maxTokens = std::string::npos, size_t start_index = 0)
+	size_t maxTokens = std::string::npos, size_t start_index = 0)
 {
 	size_t	tokenCount;
 
@@ -133,7 +121,7 @@ std::string join_lines(const std::vector<std::string> &lines)
 }
 
 int	find_first_opening_bracket_only_ws(const std::string &str,
-										size_t start_pos = 0)
+		size_t start_pos = 0)
 {
 	while (start_pos < str.length() && std::isspace(str[start_pos]))
 		++start_pos;
@@ -165,7 +153,7 @@ int	find_matching_closing_bracket(const std::string &str, int openPos)
 }
 
 int	find_matching_closing_bracket_no_nesting(const std::string &str,
-												int openPos)
+		int openPos)
 {
 	if (str[openPos] != '{')
 		return (-1);
@@ -231,8 +219,7 @@ bool Address_Comparator::operator()(const Address &addr) const
 	return (addr.ip == target.ip && addr.port == target.port);
 }
 
-Address_Comparator::Address_Comparator(const Address &target_address)
-	: target(target_address)
+Address_Comparator::Address_Comparator(const Address &target_address) : target(target_address)
 {
 }
 
@@ -248,7 +235,19 @@ std::map<std::string, std::string> get_color_map()
 	color_map["magenta"] = "\033[35m"; // Magenta
 	color_map["cyan"] = "\033[36m";    // Cyan
 	color_map["white"] = "\033[37m";   // White
-	return color_map;
+	return (color_map);
+}
+
+int	is_valid_http_code(std::string err_code)
+{
+	int	num;
+
+	if (!util::is_digits_only(err_code))
+		return (-1);
+	num = atoi(err_code.c_str());
+	if (num < 300 || num > 599)
+		return (-1);
+	return (num);
 }
 
 } // namespace util

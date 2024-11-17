@@ -18,6 +18,7 @@
 #include "Directive_Index.hpp"
 #include "Directive_Root.hpp"
 #include "Directive_Autoindex.hpp"
+#include "Directive_Return.hpp"
 #include "external.hpp"
 #include "util.hpp"
 
@@ -43,6 +44,7 @@ class Location_Parser
 	void handle_allowed_methods(std::vector<std::string> &key_val);
 	void handle_autoindex(std::vector<std::string> &key_val);
 	void handle_alias(std::vector<std::string> &key_val);
+	void handle_return(std::vector<std::string> &key_val);
 
 	class EmptyLocationDefinition : public std::exception
 	{
@@ -73,6 +75,8 @@ class Location_Parser
 	Directive_Client_Max_Body_Size &get_client_max_body_size_handler();
 	Directive_Autoindex &get_autoindex_handler();
 	Directive_Allowed_Methods &get_allowed_methods_handler();
+	Directive_Return &get_return_handler();
+
 
   private:
 	Directive_Root _root_handler;
@@ -82,6 +86,7 @@ class Location_Parser
 	Directive_Client_Max_Body_Size _client_max_body_size_handler;
 	Directive_Allowed_Methods _allowed_methods_handler;
 	Directive_Autoindex _autoindex_handler;
+	Directive_Return _return_handler;
 	std::string _location_block_str;
 	std::string _location;
 	std::map<std::string,

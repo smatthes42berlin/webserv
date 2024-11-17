@@ -54,6 +54,7 @@ void Route_Creator::create_routes(Server &new_server,
 		this->route_assign_allowed_methods(new_route, *it);
 		this->route_assign_index(new_route, *it);
 		this->route_assign_error_pages(new_route, *it);
+		this->route_assign_return(new_route, *it);
 		new_server.add_route(new_route);
 	}
 }
@@ -164,4 +165,13 @@ void Route_Creator::route_assign_error_pages(Route &new_route,
 											it->second.end());
 	}
 	new_route.set_error_pages(new_error_pages);
+}
+
+
+void Route_Creator::route_assign_return(Route &new_route,
+														Location_Parser &cur_parser)
+{
+	std::vector<util::Return_Definition> config_defs = cur_parser.get_return_handler().get_config_defs();
+	if (config_defs.size() > 0)
+		new_route.set_return(config_defs[0].status_code, config_defs[0].url);
 }

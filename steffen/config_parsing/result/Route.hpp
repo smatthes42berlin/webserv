@@ -24,6 +24,8 @@ class Route
 
 	std::string get_location() const;
 	std::string get_root() const;
+	bool get_return_is_defined() const;
+	util::Return_Definition get_return() const;
 	bool get_alias_is_defined() const;
 	std::string get_alias() const;
 	uint get_client_max_body_size() const;
@@ -33,10 +35,13 @@ class Route
 	std::map<std::string, std::vector<std::string> > get_error_pages() const;
 	std::vector<std::string> get_index() const;
 
+
 	void set_location(std::string new_val);
 	void set_root(std::string new_val);
 	void set_alias(std::string new_val);
 	void set_alias_is_defined(bool new_val);
+	void set_return(int http_code, std::string url);
+	void set_return_is_defined(bool new_val);
 	void set_client_max_body_size(uint new_val);
 	void set_autoindex(bool new_val);
 	void set_allowed_methods(std::map<std::string, bool> new_val);
@@ -51,6 +56,8 @@ class Route
 	std::string _root;
 	bool _alias_is_defined;
 	std::string _alias;
+	bool _return_is_defined;
+	util::Return_Definition _return;
 	uint _client_max_body_size;
 	bool _autoindex;
 	std::map<std::string, bool> _allowed_methods;

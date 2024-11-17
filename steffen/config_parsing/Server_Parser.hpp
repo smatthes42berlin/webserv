@@ -19,6 +19,7 @@
 #include "Directive_Root.hpp"
 #include "Directive_Server_Name.hpp"
 #include "Location_Parser.hpp"
+#include "Directive_Return.hpp"
 #include "external.hpp"
 #include "util.hpp"
 
@@ -39,6 +40,7 @@ class Server_Parser
 		int index_start_location_block,
 		int &index_opening_bracket_location_block);
 	void get_location_string(std::string src_str, std::string &res_location);
+	void check_for_duplicate_location(std::string new_location);
 	void parse_location_string(std::string location,
 		std::string remaining_server_block,
 		int index_opening_bracket_location_block,
@@ -52,6 +54,7 @@ class Server_Parser
 	void handle_autoindex(std::vector<std::string> &key_val);
 	void handle_listen(std::vector<std::string> &key_val);
 	void handle_server_name(std::vector<std::string> &key_val);
+	void handle_return(std::vector<std::string> &key_val);
 
 	class OpeningBracketForLocationBlockNotFound : public std::exception
 	{
@@ -95,6 +98,18 @@ class Server_Parser
 		mutable std::string _msg;
 	};
 
+	class DuplicateLocationDefinitionWithinOneServerBlock : public std::exception
+	{
+		public:
+		DuplicateLocationDefinitionWithinOneServerBlock(std::string location_name);
+		virtual ~DuplicateLocationDefinitionWithinOneServerBlock() throw();
+		virtual const char *what() const throw();
+
+		private:
+		std::string _location_name;
+		mutable std::string _msg;
+	};
+
 	Directive_Root &get_root_handler();
 	std::vector<Location_Parser> &get_location_parser();
 	Directive_Index &get_index_handler();
@@ -103,6 +118,7 @@ class Server_Parser
 	Directive_Autoindex &get_autoindex_handler();
 	Directive_Listen &get_listen_handler();
 	Directive_Server_Name &get_server_name_handler();
+	Directive_Return &get_return_handler();
 
   private:
 	std::string _server_str;
@@ -117,4 +133,6 @@ class Server_Parser
 	Directive_Autoindex _autoindex_handler;
 	Directive_Listen _listen_handler;
 	Directive_Server_Name _server_name_handler;
+	Directive_Return _return_handler;
+
 };

@@ -1,12 +1,12 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.6">
   <diagram name="Page-1" id="eRrzwueoh_8adngkIXSs">
-    <mxGraphModel dx="2165" dy="2985" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1806" dy="2471" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-80" value="Setup" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;noLabel=0;movableLabel=1;fontSize=20;fontStyle=5" vertex="1" parent="1">
-          <mxGeometry x="323.75" y="-920" width="1016.25" height="500" as="geometry">
-            <mxPoint x="-7" y="-277" as="offset" />
+          <mxGeometry x="323.75" y="-920" width="846.25" height="470" as="geometry">
+            <mxPoint x="-2" y="-268" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-53" value="Config Parsing" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;noLabel=0;movableLabel=1;fontSize=20;fontStyle=5" vertex="1" parent="1">
@@ -125,29 +125,14 @@
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-27" value="ServerManager" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="911.25" y="-692.5" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-35" value="int epollFd" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="911.25" y="-582.5" width="135" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-37" value="epoll_event ev" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="911.25" y="-612.5" width="135" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-39" value="int eventFd" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="911.25" y="-552.5" width="135" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-43" value="Creates the ServerHandlers" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="911.25" y="-782.5" width="112.5" height="90" as="geometry" />
-        </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-52" value="when same port and ip, simply add to existinng ServerHandler" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="926.25" y="-852.5" width="170" height="90" as="geometry" />
-        </mxCell>
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-56" value="vector&amp;lt;Serverhandler&amp;gt;serverhandler" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="681.25" y="-672.5" width="230" height="30" as="geometry" />
         </mxCell>
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-57" value="map&amp;lt;int,Client&amp;gt; clients" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1031.25" y="-672.5" width="135" height="30" as="geometry" />
+          <mxGeometry x="911.25" y="25" width="135" height="30" as="geometry" />
         </mxCell>
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-61" value="Client" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1166.25" y="-697.5" width="120" height="80" as="geometry" />
+          <mxGeometry x="1046.25" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-62" value="ServerHandler" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="563.75" y="-697.5" width="120" height="80" as="geometry" />
@@ -176,22 +161,45 @@
         <mxCell id="YM9LCaY8pqyqaQv5ynZD-68" value="vector&amp;lt;Server&amp;gt; servers" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="333.75" y="-672.5" width="230" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-70" value="opens listening/server socket" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="436.25" y="-870" width="300" height="90" as="geometry" />
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-82" value="Run" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;noLabel=0;movableLabel=1;fontSize=20;fontStyle=5" vertex="1" parent="1">
+          <mxGeometry x="370" y="-200" width="1016.25" height="500" as="geometry">
+            <mxPoint x="-7" y="-277" as="offset" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-71" value="many servers from config can have same listening/server socket" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="436.25" y="-800" width="300" height="90" as="geometry" />
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-83" value="ServerManager" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="791.25" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="YM9LCaY8pqyqaQv5ynZD-81" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0;exitY=0;exitDx=0;exitDy=0;endWidth=42.22222222222222;endSize=17.62222222222222;width=15.555555555555555;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="YM9LCaY8pqyqaQv5ynZD-27" target="YM9LCaY8pqyqaQv5ynZD-1">
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-84" value="int epollFd" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="791.25" y="110" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-85" value="epoll_event ev" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="791.25" y="80" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-86" value="int eventFd" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="791.25" y="140" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-88" value="Creates the ServerHandlers" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.roundRectCallout;dx=30;dy=15;size=5;boundedLbl=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="990" y="-745" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-89" value="when same port and ip, simply add to existinng ServerHandler" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.roundRectCallout;dx=30;dy=15;size=5;boundedLbl=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="921.25" y="-800" width="168.75" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-90" value="opens listening/server socket" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.roundRectCallout;dx=30;dy=15;size=5;boundedLbl=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="512.5" y="-820" width="168.75" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-92" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0;exitY=0;exitDx=0;exitDy=0;endWidth=42.22222222222222;endSize=17.62222222222222;width=15.555555555555555;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="YM9LCaY8pqyqaQv5ynZD-27" target="YM9LCaY8pqyqaQv5ynZD-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="550" y="-950" as="sourcePoint" />
-            <mxPoint x="405" y="-960" as="targetPoint" />
+            <mxPoint x="929" y="-681" as="sourcePoint" />
+            <mxPoint x="-70" y="-845" as="targetPoint" />
             <Array as="points">
               <mxPoint x="730" y="-880" />
               <mxPoint x="440" y="-1000" />
               <mxPoint x="150" y="-1010" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-91" value="many servers from config can have same listening/server socket" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.roundRectCallout;dx=30;dy=15;size=5;boundedLbl=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="590" y="-767.5" width="190" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

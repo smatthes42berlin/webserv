@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.6">
   <diagram name="Page-1" id="eRrzwueoh_8adngkIXSs">
-    <mxGraphModel dx="2899" dy="2177" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2284" dy="1854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -276,7 +276,7 @@
         <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-13" value="process" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
           <mxGeometry x="1604.38" y="335" width="220" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-16" value="sending big files:&amp;nbsp;&lt;div&gt;check whether socket is ready using epoll EPOLLOUT&lt;/div&gt;&lt;div&gt;send it in chunks&lt;/div&gt;&lt;div&gt;always check for readiness before sending&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#ffd966;" vertex="1" parent="1">
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-16" value="sending big files:&amp;nbsp;&lt;div&gt;check whether socket is ready using epoll EPOLLOUT&lt;/div&gt;&lt;div&gt;send it in chunks&lt;/div&gt;&lt;div&gt;always check for readiness before sending&lt;/div&gt;&lt;div&gt;check, that send has&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;gradientColor=#ffd966;" vertex="1" parent="1">
           <mxGeometry x="2180" y="160" width="320" height="80" as="geometry" />
         </mxCell>
       </root>

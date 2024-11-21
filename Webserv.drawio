@@ -1,44 +1,140 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.8.4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.6">
   <diagram name="Page-1" id="eRrzwueoh_8adngkIXSs">
-    <mxGraphModel dx="1434" dy="1854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="636" dy="2177" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="aeYk51n5nFQIalupaCN_-1" value="Client" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=22;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-1" value="Client" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=22;" parent="1" vertex="1">
           <mxGeometry x="80" y="320" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-2" value="Server" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=22;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-2" value="Server" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=22;" parent="1" vertex="1">
           <mxGeometry x="710" y="290" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-3" value="Config" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=22;" vertex="1" parent="1">
-          <mxGeometry x="710" y="40" width="80" height="80" as="geometry" />
+        <mxCell id="aeYk51n5nFQIalupaCN_-3" value="Config_Parser" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=22;" parent="1" vertex="1">
+          <mxGeometry x="710" y="40" width="140" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-8" value="Request" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-8" value="Request" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="260" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-9" value="Response" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-9" value="Response" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="400" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-10" value="Parsing" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-10" value="Parsing" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="570" y="480" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-13" value="Listening Socket" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-13" value="Listening Socket" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="450" y="250" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-14" value="Client Socket" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-14" value="Client Socket" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="450" y="330" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-15" value="&lt;ul&gt;&lt;li&gt;parse config file&lt;/li&gt;&lt;li&gt;open listening sockets&lt;/li&gt;&lt;li&gt;use epoll to check sockets&lt;/li&gt;&lt;ul&gt;&lt;li&gt;accept new connection&lt;/li&gt;&lt;li&gt;read from connection&lt;/li&gt;&lt;li&gt;write to connection&lt;/li&gt;&lt;ul&gt;&lt;li&gt;send answer page&lt;/li&gt;&lt;li&gt;send error page&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;li&gt;close Socket after timeout time&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="230" y="-40" width="305" height="280" as="geometry" />
+        <mxCell id="aeYk51n5nFQIalupaCN_-15" value="&lt;ul&gt;&lt;li&gt;parse config file&lt;/li&gt;&lt;li&gt;open listening sockets&lt;/li&gt;&lt;li&gt;use epoll to check sockets&lt;/li&gt;&lt;ul&gt;&lt;li&gt;accept new connection&lt;/li&gt;&lt;li&gt;read from connection&lt;/li&gt;&lt;li&gt;write to connection&lt;/li&gt;&lt;ul&gt;&lt;li&gt;send answer page&lt;/li&gt;&lt;li&gt;send error page&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;li&gt;close Socket after timeout time&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="340" y="270" width="305" height="280" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-17" value="Read until one full request is received" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-17" value="Read until one full request is received" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="270" y="540" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-18" value="Append to Buffer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-18" value="Append to Buffer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="270" y="630" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="aeYk51n5nFQIalupaCN_-19" value="Size limit given in header or /cr/lf/cr/lf?" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="aeYk51n5nFQIalupaCN_-19" value="Size limit given in header or /cr/lf/cr/lf?" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="270" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-1" value="Config_Parser" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="-470" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-3" value="Server" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="-410" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-4" value="Route" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="427.5" y="-355" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-5" value="listen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-330" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-6" value="root" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-270" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-7" value="autoindex" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-240" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-8" value="client_max_body_size" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-210" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-9" value="return" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-150" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-10" value="index" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-120" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-11" value="server_name" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-300" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-12" value="error_pages" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-90" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-13" value="vector&amp;lt;Route&amp;gt; routes" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="-385" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-14" value="location" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-275" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-15" value="root" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-245" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-16" value="autoindex" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-125" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-17" value="client_max_body_size" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-95" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-18" value="return" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-35" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-19" value="index" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-5" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-21" value="error_pages" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="25" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-22" value="alias" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-185" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-23" value="allowed_methods" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-155" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-24" value="alias_is_defined" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-215" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-25" value="return_is_defined" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="-65" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-26" value="return_is_defined" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="-180" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-27" value="ServerManager" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="-690" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-28" value="vector&amp;lt;Serverhandler&amp;gt;serverhandler" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="-665" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-29" value="map&amp;lt;int,Client&amp;gt; clients" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="405" y="-665" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-35" value="int epollFd" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="-580" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-37" value="epoll_event ev" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="-610" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-39" value="int eventFd" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="-550" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-40" value="Client" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="-730" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="YM9LCaY8pqyqaQv5ynZD-41" value="ServerHandler" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="-730" width="120" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

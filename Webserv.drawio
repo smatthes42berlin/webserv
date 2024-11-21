@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.6">
   <diagram name="Page-1" id="eRrzwueoh_8adngkIXSs">
-    <mxGraphModel dx="2204" dy="3254" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2899" dy="2177" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -254,6 +254,27 @@
         </mxCell>
         <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-4" value="RequestRouter" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1604.38" y="550" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-5" value="validate request" style="whiteSpace=wrap;html=1;shape=mxgraph.basic.roundRectCallout;dx=30;dy=15;size=5;boundedLbl=1;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="690" width="168.75" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-8" value="check whether body needed" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="1654.38" y="195" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-9" value="Read request into Client buffer" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="1724.38" y="-20" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-10" value="unti header read" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="1704.38" y="55" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-11" value="Assign server to client" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="1684.38" y="125" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-12" value="wait until ready" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="1630.63" y="265" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5A6jfo2hQdUP_Ugk5Kxi-13" value="process" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="1604.38" y="335" width="220" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

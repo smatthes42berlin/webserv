@@ -490,6 +490,12 @@
         <mxCell id="BYoEFyFnOseZgXsmX82E-29" value="execve" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="2570" y="-1330" width="167.5" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="BYoEFyFnOseZgXsmX82E-30" value="timeout for cgi script" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2840" y="-1440" width="167.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BYoEFyFnOseZgXsmX82E-31" value="ensure appropriate permissions of the script" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2840" y="-1401.3" width="167.5" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
